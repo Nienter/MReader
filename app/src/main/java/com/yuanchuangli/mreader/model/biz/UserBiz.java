@@ -3,7 +3,9 @@ package com.yuanchuangli.mreader.model.biz;
 import com.yuanchuangli.mreader.model.bean.user.User;
 
 /**
- * Created by Blank on 2016/11/21 16:33
+ * @author Blank
+ * @description 处理具体的逻辑
+ * @time 2016/11/23 11:26
  */
 
 public class UserBiz implements IUserBiz {
