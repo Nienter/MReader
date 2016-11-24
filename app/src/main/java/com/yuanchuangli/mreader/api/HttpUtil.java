@@ -25,6 +25,13 @@ public class HttpUtil {
         throw new Error("不允许初始化");
     }
 
+    /**
+     * get方式提交
+     *
+     * @param url    url地址
+     * @param params 参数，集合形式
+     * @return 返回的json信息
+     */
     public static String sendGet(URL url, Map<String, Object> params) {
         String result;
         StringBuilder sb = new StringBuilder();
@@ -66,6 +73,13 @@ public class HttpUtil {
         return sb.toString();
     }
 
+    /**
+     * post方式发送请求
+     *
+     * @param url    请求的url地址
+     * @param params 请求的参数
+     * @return json串
+     */
     public static String sendPost(URL url, String params) {
         String result;
         StringBuilder sb = new StringBuilder();

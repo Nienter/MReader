@@ -1,9 +1,13 @@
 package com.yuanchuangli.mreader.model.biz;
 
+import com.yuanchuangli.mreader.model.bean.user.BaseUser;
+
 /**
- * Created by Blank on 2016/11/21 16:25
+ * @author Blank
+ * @description IUserBiz 登录操作的接口
+ * @time 2016/11/24 18:24
  */
 
 public interface IUserBiz {
-    void login(String username, String password, OnloginListener onloginListener);
+    void login(BaseUser user, OnloginListener onloginListener);
 }

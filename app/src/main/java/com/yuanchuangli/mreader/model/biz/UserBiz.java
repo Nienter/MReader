@@ -1,6 +1,8 @@
 package com.yuanchuangli.mreader.model.biz;
 
-import com.yuanchuangli.mreader.model.bean.user.User;
+import com.yuanchuangli.mreader.api.ServerInterface_POST;
+import com.yuanchuangli.mreader.model.bean.user.BaseUser;
+import com.yuanchuangli.mreader.parse.JSONParse_PHP;
 
 /**
  * @author Blank
@@ -10,21 +12,21 @@ import com.yuanchuangli.mreader.model.bean.user.User;
 
 public class UserBiz implements IUserBiz {
     @Override
-    public void login(final String username, final String password, final OnloginListener loginListener) {
+    public void login(final BaseUser user, final OnloginListener loginListener) {
         new Thread() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                //登录成功
-                if ("npk".equals(username) && "123".equals(password)) {
-                    User user = new User(username, password);
-                    loginListener.loginSuccess(user);
-                } else {
-                    loginListener.loginFailed();
+                String json = ServerInterface_POST.checkPass(user);
+                int code = JSONParse_PHP.getStatus(json);
+                switch (code) {
+                    case JSONParse_PHP.STATUS_SUCCESS:
+                        loginListener.loginSuccess(user);
+                        break;
+                    case JSONParse_PHP.STATUS_FAILE:
+                        loginListener.loginFailed();
+                    case JSONParse_PHP.STATUS_PARSE_FAIL_INNER:
+                        loginListener.loginFailed();
+                        break;
                 }
             }
         }.start();

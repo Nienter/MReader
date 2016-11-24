@@ -42,6 +42,11 @@ public class ServerInterface_GET {
         throw new Error("不允许初始化");
     }
 
+    /**
+     * 从服务器获取时间
+     *
+     * @return
+     */
     public static String getTimeFromServer() {
         try {
             URL url = new URL(REQUEST_PATH_TIME);
@@ -53,6 +58,11 @@ public class ServerInterface_GET {
 
     }
 
+    /**
+     * 从服务器获取文档列表
+     *
+     * @return josn串
+     */
     public static String getDocListFromServer() {
         try {
             URL url = new URL(REQUEST_PATH_DOC_CHOOSEN);
@@ -62,4 +72,6 @@ public class ServerInterface_GET {
             return "";
         }
     }
+
+ 
 }

@@ -1,13 +1,15 @@
 package com.yuanchuangli.mreader.model.biz;
 
-import com.yuanchuangli.mreader.model.bean.user.User;
+import com.yuanchuangli.mreader.model.bean.user.BaseUser;
 
 /**
- * Created by Blank on 2016/11/21 16:26
+ * @author Blank
+ * @description OnloginListener 登录结果的回调接口
+ * @time 2016/11/24 18:25
  */
 
 public interface OnloginListener {
-    void loginSuccess(User user);
+    void loginSuccess(BaseUser user);
 
     void loginFailed();
 }

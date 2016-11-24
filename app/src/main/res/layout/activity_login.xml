@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0FFFF"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_cointar_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/ic_login_logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="文档共享"
+            android:textColor="#1296db"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_container_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_cointar_logo"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:background="@drawable/account_corner_bg"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:showDividers="middle">
+
+        <EditText
+            android:id="@+id/id_et_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:drawableLeft="@drawable/ic_account"
+            android:hint="用户名"
+            android:maxLines="1" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/id_et_psw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/ic_lock"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:maxLines="1" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/darker_gray" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/id_btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_container_edt"
+        android:layout_margin="15dp"
+        android:background="@drawable/login_selectshape"
+        android:elevation="20dp"
+        android:text="登       录"
+        android:textColor="@android:color/white"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/id_tv_login_other"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_btn_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="--或者你可以用以下方式登录--" />
+
+    <ProgressBar
+        android:id="@+id/id_pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_tv_login_other"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/ll_cointar_otherlogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <com.yuanchuangli.mreader.ui.myview.ThumbnailView
+            android:id="@+id/id_ic_qq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_login_qq" />
+
+        <com.yuanchuangli.mreader.ui.myview.ThumbnailView
+            android:id="@+id/id_ic_weixin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_login_zhifubao" />
+
+        <com.yuanchuangli.mreader.ui.myview.ThumbnailView
+            android:id="@+id/id_ic_xinlang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_login_wexin" />
+
+    </LinearLayout>
+</RelativeLayout>

@@ -10,8 +10,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * 用于解析服务器的
- * Created by Blank on 2016/11/22 13:49
+ * @author Balnk
+ * @description JSONParse_PHP 解析服务器传回的数据
+ * @time 2016/11/24 18:26
  */
 
 public class JSONParse_PHP {
@@ -87,6 +88,12 @@ public class JSONParse_PHP {
 
     }
 
+    /**
+     * 解析token
+     *
+     * @param JSON
+     * @return
+     */
     public static String getToken(String JSON) {
         try {
             LogUtils.i("JSON_TIME", JSON);

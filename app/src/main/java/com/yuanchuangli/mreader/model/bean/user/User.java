@@ -5,11 +5,11 @@ package com.yuanchuangli.mreader.model.bean.user;
  * Created by Blank on 2016/11/21 15:36
  */
 
-public class User {
+public class User implements BaseUser {
     private String username;
     private String password;
 
-    public User(String password, String username) {
+    public User(String username, String password) {
         this.password = password;
         this.username = username;
     }
