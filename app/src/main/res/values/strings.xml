@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MReader</string>
+    <string name="str_login">登 录</string>
 </resources>
