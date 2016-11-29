@@ -28,6 +28,10 @@ public class JSONParse_PHP {
      * 内部解析错误(json解析异常)
      */
     public final static int STATUS_PARSE_FAIL_INNER = 400;
+    /**
+     * 服务器异常
+     */
+    public final static int SERVER_CONNECTION_ERROR = 2;
 
     /**
      * 私有化构造函数，不允许别人初始化
@@ -44,10 +48,14 @@ public class JSONParse_PHP {
      */
     public static int getStatus(String JSON) {
         try {
+
             JSONObject jsonObject = new JSONObject(JSON);
             return jsonObject.getInt("code");
         } catch (JSONException e) {
             e.printStackTrace();
+            if (JSON == "") {
+                return SERVER_CONNECTION_ERROR;
+            }
             return STATUS_PARSE_FAIL_INNER;
         }
     }

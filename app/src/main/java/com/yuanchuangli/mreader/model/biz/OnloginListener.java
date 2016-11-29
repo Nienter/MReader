@@ -11,5 +11,7 @@ import com.yuanchuangli.mreader.model.bean.user.BaseUser;
 public interface OnloginListener {
     void loginSuccess(BaseUser user);
 
-    void loginFailed();
+    boolean isCancleLogin();
+
+    void loginFailed(int code);
 }

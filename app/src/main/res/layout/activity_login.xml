@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="文档共享"
+            android:text="@string/activity_login_logo_title"
             android:textColor="#1296db"
             android:textSize="15sp"
             android:textStyle="normal" />
@@ -71,7 +71,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/img"
                 android:background="@null"
-                android:hint="用户名"
+                android:hint="@string/activity_login_username"
                 android:maxLength="20"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -110,7 +110,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/id_ic_lock"
                 android:background="@null"
-                android:hint="密码"
+                android:hint="@string/activity_login_password"
                 android:inputType="textPassword"
                 android:maxLength="20"
                 android:maxLines="1"
@@ -130,7 +130,7 @@
         android:layout_margin="15dp"
         android:background="@drawable/login_selectshape"
         android:elevation="20dp"
-        android:text="@string/str_login"
+        android:text="@string/activity_login_str_login"
         android:textColor="@android:color/white"
         android:textSize="15sp" />
 
@@ -141,15 +141,8 @@
         android:layout_below="@+id/id_btn_login"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
-        android:text="--或者你可以用以下方式登录--" />
+        android:text="@string/acticity_login_str_otherlogin" />
 
-    <ProgressBar
-        android:id="@+id/id_pb_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/id_tv_login_other"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/ll_cointar_otherlogin"

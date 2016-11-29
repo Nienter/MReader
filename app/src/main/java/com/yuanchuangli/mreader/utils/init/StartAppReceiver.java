@@ -18,12 +18,14 @@ package com.yuanchuangli.mreader.utils.init;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 
 /**
  * 启动程序广播接收器
  * 暂时未用
  *
  * @author Blank
+ * @time 11.29
  */
 public class StartAppReceiver extends BroadcastReceiver {
 
@@ -31,6 +33,7 @@ public class StartAppReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         context.startActivity(context.getPackageManager()
                 .getLaunchIntentForPackage(context.getPackageName()));
+        Toast.makeText(context, "走到了", Toast.LENGTH_LONG).show();
     }
 
 }

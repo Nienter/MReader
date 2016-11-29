@@ -21,13 +21,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.widget.Toast;
+
+import com.yuanchuangli.mreader.ui.activity.LoginActivity;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
+ * 展示未用，发现在BaseApplication会无法生成崩溃日志
  * 重启线程异常处理器，当发生未知异常时会提示异常信息并在一秒钟后重新启动应用
  * <br>使用此功能的第一步需要你在AndroidMainfest.xml中注册me.xiaopan.android.content.StartApplicationBrocastReceiver广播（注意不要任何的filter）
  * <br>第二步就是在你的Application的onCreate()方法中加上new RebootThreadExceptionHandler(getBaseContext());即可
@@ -59,8 +61,9 @@ public class RebootThreadExceptionHandler implements UncaughtExceptionHandler {
                 @Override
                 public void run() {
                     Looper.prepare();
-                    Toast.makeText(context, hintText, Toast.LENGTH_SHORT)
-                            .show();
+//                    Toast.makeText(context, "程序出现异常,3秒后即将关闭该页面并将重启程序，请原谅", Toast.LENGTH_SHORT)
+//                            .show();
+
                     Looper.loop();
                 }
             }).start();
@@ -74,14 +77,17 @@ public class RebootThreadExceptionHandler implements UncaughtExceptionHandler {
         }
 
 		/* 设置定时器，在1秒钟后发出启动程序的广播 */
-        AlarmManager alarmManager = (AlarmManager) context
+        AlarmManager mAlarmManager = (AlarmManager) context
                 .getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = new GregorianCalendar();
         calendar.add(Calendar.SECOND, 1);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                PendingIntent.getBroadcast(context, 0, new Intent(context,
-                        StartAppReceiver.class), 0));
+        //注释的这段采用的是广播重新启动应用，未知原因无法启动，现直接采用下面一种方法
+//        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+//                PendingIntent.getBroadcast(context, 0, new Intent(context,
+//                        StartAppReceiver.class).addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES), 0));
 
+        mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                PendingIntent.getActivity(context, 0, new Intent(context, LoginActivity.class), 0));
         android.os.Process.killProcess(android.os.Process.myPid()); // 结束程序
     }
 

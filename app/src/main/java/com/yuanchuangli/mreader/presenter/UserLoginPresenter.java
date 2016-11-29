@@ -39,12 +39,17 @@ public class UserLoginPresenter {
             }
 
             @Override
-            public void loginFailed() {
+            public boolean isCancleLogin() {
+                return userLoginView.isCancleLodading();
+            }
+
+            @Override
+            public void loginFailed(final int code) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        userLoginView.showFaildError();
                         userLoginView.hideLoading();
+                        userLoginView.showFaildError(code);
                     }
                 });
             }

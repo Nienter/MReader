@@ -19,7 +19,9 @@ public interface IUserLoginView {
 
     void hideLoading();//隐藏进度框
 
+    boolean isCancleLodading();//取消对话框
+
     void toHomeActivity();//跳转到主界面
 
-    void showFaildError();//显示错误信息
+    void showFaildError(int code);//显示错误信息
 }

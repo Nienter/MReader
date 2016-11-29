@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">MReader</string>
-    <string name="str_login">登 录</string>
+
+
+    <!--登录界面-->
+    <string name="activity_login_str_login">登   录</string>
+    <string name="activity_login_logo_title">文档共享</string>
+    <string name="activity_login_username">用户名</string>
+    <string name="activity_login_password">密码</string>
+    <string name="acticity_login_str_otherlogin">--或者你可以用以下方式登录--</string>
+    <string name="java_login_message_pd">登录中...</string>
+    <string name="java_login_ServerError">服务器异常</string>
+    <string name="java_login_notmatch">登录失败,请检查账户或密码</string>
+    <string name="java_login_paser_in">内部解析错误</string>
+    <string name="java_login_space_input">账户或密码为空</string>
+    <string name="java_login_networkerror">网络不可用</string>
 </resources>

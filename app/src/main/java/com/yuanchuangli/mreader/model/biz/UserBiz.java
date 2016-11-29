@@ -3,6 +3,7 @@ package com.yuanchuangli.mreader.model.biz;
 import com.yuanchuangli.mreader.api.ServerInterface_POST;
 import com.yuanchuangli.mreader.model.bean.user.BaseUser;
 import com.yuanchuangli.mreader.parse.JSONParse_PHP;
+import com.yuanchuangli.mreader.utils.LogUtils;
 
 /**
  * @author Blank
@@ -18,14 +19,14 @@ public class UserBiz implements IUserBiz {
             public void run() {
                 String json = ServerInterface_POST.checkPass(user);
                 int code = JSONParse_PHP.getStatus(json);
+                LogUtils.i("Cancle", "boolean is" + loginListener.isCancleLogin());
+                if (loginListener.isCancleLogin()) return;
                 switch (code) {
                     case JSONParse_PHP.STATUS_SUCCESS:
                         loginListener.loginSuccess(user);
                         break;
-                    case JSONParse_PHP.STATUS_FAILE:
-                        loginListener.loginFailed();
-                    case JSONParse_PHP.STATUS_PARSE_FAIL_INNER:
-                        loginListener.loginFailed();
+                    default:
+                        loginListener.loginFailed(code);
                         break;
                 }
             }

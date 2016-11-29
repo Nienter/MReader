@@ -15,22 +15,28 @@
  */
 package com.yuanchuangli.mreader.utils.init;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Environment;
 import android.os.Looper;
 import android.widget.Toast;
 
+import com.yuanchuangli.mreader.ui.activity.LoginActivity;
 import com.yuanchuangli.mreader.utils.LogUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * 在Application中统一捕获异常，保存到文件中下次再打开时上传
  *
- * @author jingle1267@163.com
+ * @author Blank
  */
 public class BaseCrashHandler implements UncaughtExceptionHandler {
 
@@ -88,13 +94,21 @@ public class BaseCrashHandler implements UncaughtExceptionHandler {
         if (!handleException(ex) && mDefaultHandler != null) {
             // 如果用户没有处理则让系统默认的异常处理器来处理
             mDefaultHandler.uncaughtException(thread, ex);
+
         } else { // 如果自己处理了异常，则不会弹出错误对话框，则需要手动退出app
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
             }
+            AlarmManager mAlarmManager = (AlarmManager) mContext
+                    .getSystemService(Context.ALARM_SERVICE);
+            Calendar calendar = new GregorianCalendar();
+            calendar.add(Calendar.SECOND, 1);
+            mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    PendingIntent.getActivity(mContext, 0, new Intent(mContext, LoginActivity.class), 0));
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(10);
+
         }
 
     }
@@ -110,7 +124,6 @@ public class BaseCrashHandler implements UncaughtExceptionHandler {
         if (ex == null) {
             return false;
         }
-        Toast.makeText(mContext, "程序出现异常1", Toast.LENGTH_LONG).show();
         final StackTraceElement[] stack = ex.getStackTrace();
         final String message = ex.getMessage();
 
@@ -119,10 +132,11 @@ public class BaseCrashHandler implements UncaughtExceptionHandler {
             @Override
             public void run() {
                 Looper.prepare();
-                Toast.makeText(mContext, "程序出现异常", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "程序出现异常,3秒后即将关闭该页面,请联系我们,我们会尽快处理,给你带来的不便请原谅!", Toast.LENGTH_LONG).show();
                 LogUtils.i(message);
                 dosave(stack, message);
                 Looper.loop();
+
             }
 
             private void dosave(final StackTraceElement[] stack,
@@ -141,7 +155,7 @@ public class BaseCrashHandler implements UncaughtExceptionHandler {
                     for (int i = 0; i < stack.length; i++) {
                         fos.write(stack[i].toString().getBytes());
                     }
-
+                    fos.write(getPhoneInfo().getBytes());
                     fos.flush();
                     fos.close();
                 } catch (Exception e) {
@@ -149,6 +163,7 @@ public class BaseCrashHandler implements UncaughtExceptionHandler {
             }
 
         }.start();
+
         return true;
     }
 
@@ -158,22 +173,22 @@ public class BaseCrashHandler implements UncaughtExceptionHandler {
      * @return
      */
     public String getPhoneInfo() {
-        String phoneInfo = "Product: " + android.os.Build.PRODUCT;
-        phoneInfo += ", CPU_ABI: " + android.os.Build.CPU_ABI;
-        phoneInfo += ", TAGS: " + android.os.Build.TAGS;
-        phoneInfo += ", VERSION_CODES.BASE: "
+        String phoneInfo = "\nProduct: " + android.os.Build.PRODUCT;
+        phoneInfo += ", \nCPU_ABI: " + android.os.Build.CPU_ABI;
+        phoneInfo += ", \nTAGS: " + android.os.Build.TAGS;
+        phoneInfo += ", \nVERSION_CODES.BASE: "
                 + android.os.Build.VERSION_CODES.BASE;
-        phoneInfo += ", MODEL: " + android.os.Build.MODEL;
-        phoneInfo += ", SDK: " + android.os.Build.VERSION.SDK_INT;
-        phoneInfo += ", VERSION.RELEASE: " + android.os.Build.VERSION.RELEASE;
-        phoneInfo += ", DEVICE: " + android.os.Build.DEVICE;
-        phoneInfo += ", DISPLAY: " + android.os.Build.DISPLAY;
-        phoneInfo += ", BRAND: " + android.os.Build.BRAND;
-        phoneInfo += ", BOARD: " + android.os.Build.BOARD;
-        phoneInfo += ", FINGERPRINT: " + android.os.Build.FINGERPRINT;
-        phoneInfo += ", ID: " + android.os.Build.ID;
-        phoneInfo += ", MANUFACTURER: " + android.os.Build.MANUFACTURER;
-        phoneInfo += ", USER: " + android.os.Build.USER;
+        phoneInfo += ", \nMODEL: " + android.os.Build.MODEL;
+        phoneInfo += ", \nSDK: " + android.os.Build.VERSION.SDK_INT;
+        phoneInfo += ", \nVERSION.RELEASE: " + android.os.Build.VERSION.RELEASE;
+        phoneInfo += ", \nDEVICE: " + android.os.Build.DEVICE;
+        phoneInfo += ", \nDISPLAY: " + android.os.Build.DISPLAY;
+        phoneInfo += ", \nBRAND: " + android.os.Build.BRAND;
+        phoneInfo += ", \nBOARD: " + android.os.Build.BOARD;
+        phoneInfo += ", \nFINGERPRINT: " + android.os.Build.FINGERPRINT;
+        phoneInfo += ", \nID: " + android.os.Build.ID;
+        phoneInfo += ", \nMANUFACTURER: " + android.os.Build.MANUFACTURER;
+        phoneInfo += ", \nUSER: " + android.os.Build.USER;
         return phoneInfo;
     }
 }

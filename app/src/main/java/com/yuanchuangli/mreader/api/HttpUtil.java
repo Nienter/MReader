@@ -105,9 +105,12 @@ public class HttpUtil {
                 while ((result = reader.readLine()) != null) {
                     sb.append(result);
                 }
+            } else {
+                return null;
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return "";
         } finally {
             try {
                 if (reader != null)
