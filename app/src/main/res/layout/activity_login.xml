@@ -37,8 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_cointar_logo"
         android:layout_gravity="center"
-        android:layout_margin="15dp"
-        android:background="@drawable/account_corner_bg"
+        android:layout_margin="10dp"
+        android:padding="8dp"
+        android:background="@drawable/background_edittext"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -46,13 +47,10 @@
             android:layout_height="60dp">
 
             <ImageView
-
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:background="#56AB55" />
+                android:background="#9000" />
 
             <ImageView
                 android:id="@+id/img"
@@ -61,9 +59,9 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="5dp"
-                android:src="@drawable/ic_account" />
+                android:src="@drawable/ic_login_username" />
 
-            <com.yuanchuangli.mreader.ui.myview.EditTextWithDel
+            <com.yuanchuangli.mreader.ui.myview.CleanableEditText
                 android:id="@+id/id_et_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,17 +69,18 @@
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/img"
                 android:background="@null"
+                android:drawableRight="@drawable/icon_delete_gray"
                 android:hint="@string/activity_login_username"
                 android:maxLength="20"
                 android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="#56AB55"
-                android:textCursorDrawable="@null" />
+                android:singleLine="true" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="60dp"
+
+            >
 
             <ImageView
                 android:id="@+id/id_ic_lock"
@@ -90,33 +89,23 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="5dp"
-                android:src="@drawable/ic_lock" />
+                android:src="@drawable/ic_login_userpwd" />
 
-            <ImageView
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:background="#56AB55" />
 
-            <com.yuanchuangli.mreader.ui.myview.EditTextWithDel
+            <com.yuanchuangli.mreader.ui.myview.CleanableEditText
                 android:id="@+id/id_et_psw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/id_ic_lock"
                 android:background="@null"
+                android:drawableRight="@drawable/icon_delete_gray"
                 android:hint="@string/activity_login_password"
                 android:inputType="textPassword"
                 android:maxLength="20"
                 android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="#56AB55"
-                android:textCursorDrawable="@null" />
+                android:singleLine="true" />
         </RelativeLayout>
 
 
