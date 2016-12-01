@@ -39,11 +39,11 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
     private EditText mEtUsername, mEtPassword;
     private Resources res;
     private Button mBtnLogin;
-    private ImageView img_logo;
+    private ImageView img_logo, ic_login_qq;
     private ProgressDialog mPdLoading;
     private String str_name, str_psw;
     private boolean isStop = false;
-
+    private static final String TAG = "LoginActivity";
     private UserLoginPresenter mUserLoginPresenter = new UserLoginPresenter(this);
 
     @Override
@@ -66,7 +66,10 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
         mEtPassword = (EditText) findViewById(R.id.id_et_psw);
         mBtnLogin = (Button) findViewById(R.id.id_btn_login);
         img_logo = (ImageView) findViewById(R.id.id_img_logo);
+        ic_login_qq = (ImageView) findViewById(R.id.id_ic_qq);
+        ic_login_qq.setOnClickListener(this);
         mBtnLogin.setOnClickListener(this);
+
     }
 
     @Override
@@ -104,6 +107,7 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
     @Override
     public void toHomeActivity() {
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        ToastUtils.showToast(this, "qq登陆成功");
         ActivityCollector.removeActivity(this);
     }
 
@@ -146,6 +150,9 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
                 getAllText();
                 if (checkInput() && isOpenNetwork())
                     mUserLoginPresenter.login();
+                break;
+            case R.id.id_ic_qq:
+                mUserLoginPresenter.login_qq(this);
                 break;
         }
     }
@@ -205,4 +212,16 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
         super.onBackPressed();
         ActivityCollector.removeActivity(this);
     }
+
+//    /**
+//     * qq的返回的数据
+//     *
+//     * @param requestCode
+//     * @param resultCode
+//     * @param data
+//     */
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        Tencent.onActivityResultData(requestCode, resultCode, data, new BaseUiListener());
+//    }
 }

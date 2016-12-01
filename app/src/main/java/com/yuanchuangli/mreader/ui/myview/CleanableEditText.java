@@ -16,7 +16,6 @@ import android.widget.EditText;
  */
 public class CleanableEditText extends EditText {
     private Drawable mRightDrawable;
-    private boolean isHasFocus;
 
     public CleanableEditText(Context context) {
         super(context);
@@ -77,8 +76,7 @@ public class CleanableEditText extends EditText {
     private class FocusChangeListenerImpl implements OnFocusChangeListener {
         @Override
         public void onFocusChange(View v, boolean hasFocus) {
-            isHasFocus = hasFocus;
-            if (isHasFocus) {
+            if (hasFocus) {
                 boolean isVisible = getText().toString().length() >= 1;
                 setClearDrawableVisible(isVisible);
             } else {

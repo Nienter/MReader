@@ -1,12 +1,20 @@
 package com.yuanchuangli.mreader.presenter;
 
+import android.app.Activity;
 import android.os.Handler;
 
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.UiError;
 import com.yuanchuangli.mreader.model.bean.user.BaseUser;
+import com.yuanchuangli.mreader.model.biz.IQQBiz;
 import com.yuanchuangli.mreader.model.biz.IUserBiz;
 import com.yuanchuangli.mreader.model.biz.OnloginListener;
+import com.yuanchuangli.mreader.model.biz.QQBiz;
 import com.yuanchuangli.mreader.model.biz.UserBiz;
 import com.yuanchuangli.mreader.ui.view.IUserLoginView;
+import com.yuanchuangli.mreader.utils.LogUtils;
+
+import org.json.JSONObject;
 
 /**
  * @author Blank
@@ -18,12 +26,18 @@ public class UserLoginPresenter {
     private IUserBiz userBiz;
     private IUserLoginView userLoginView;
     private Handler mHandler = new Handler();
+    private IQQBiz QQBiz;
+    public static IUiListener listener;
 
     public UserLoginPresenter(IUserLoginView userLoginView) {
         this.userLoginView = userLoginView;
         this.userBiz = new UserBiz();
+        this.QQBiz = new QQBiz();
     }
 
+    /**
+     * 用于使用账户密码的用户的登录
+     */
     public void login() {
         userLoginView.showLoading();
         userBiz.login(userLoginView.getUser(), new OnloginListener() {
@@ -52,6 +66,48 @@ public class UserLoginPresenter {
                         userLoginView.showFaildError(code);
                     }
                 });
+            }
+        });
+    }
+
+    /**
+     * 用于qq的第三方登录
+     *
+     * @param activity
+     */
+    public void login_qq(Activity activity) {
+        QQBiz.login(activity, new IUiListener() {
+            @Override
+            public void onComplete(Object value) {
+                System.out.println("有数据返回..");
+                if (value == null) {
+                    return;
+                }
+                try {
+                    JSONObject jo = (JSONObject) value;
+                    int ret = jo.getInt("ret");
+                    LogUtils.i("JSON", value.toString());
+                    if (ret == 0) {
+                        String openID = jo.getString("openid");
+                        String accessToken = jo.getString("access_token");
+                        String expires = jo.getString("expires_in");
+                        LogUtils.i("登陆成功", "登陆成功");
+                    }
+
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
+
+            }
+
+            @Override
+            public void onError(UiError uiError) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
             }
         });
     }

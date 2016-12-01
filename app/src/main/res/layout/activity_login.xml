@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="50dp"
+            android:contentDescription="@null"
             android:src="@drawable/ic_login_logo" />
 
         <TextView
@@ -38,9 +39,9 @@
         android:layout_below="@+id/ll_cointar_logo"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:padding="8dp"
         android:background="@drawable/background_edittext"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -50,15 +51,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:background="#9000" />
+                android:background="#9000"
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/img"
                 android:layout_width="25dp"
                 android:layout_height="30dp"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="5dp"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_login_username" />
 
             <com.yuanchuangli.mreader.ui.myview.CleanableEditText
@@ -89,6 +93,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="5dp"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_login_userpwd" />
 
 
