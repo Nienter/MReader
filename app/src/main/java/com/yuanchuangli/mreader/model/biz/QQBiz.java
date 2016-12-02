@@ -11,26 +11,9 @@ import com.yuanchuangli.mreader.utils.init.BaseApplication;
  */
 
 public class QQBiz implements IQQBiz {
-    //public static IUiListener listener;
-//
-//    public static void login(Activity activity) {
-//        listener = new BaseUiListener() {
-//            @Override
-//            protected void doComplete(JSONObject values) {
-//            }
-//        };
-//
-//        if (!BaseApplication.getTecent().isSessionValid()) {
-//            BaseApplication.getTecent().login(activity, "all", listener);
-//        }
-//    }
-
-
     @Override
     public void login(final Activity activity, final IUiListener iUiListener) {
         Tencent mTencent = BaseApplication.getTecent();
         mTencent.login(activity, "all", iUiListener);
-
-        //LogUtils.i("UUU", "数字是" + mTencent.login(activity, "all", iUiListener));
     }
 }

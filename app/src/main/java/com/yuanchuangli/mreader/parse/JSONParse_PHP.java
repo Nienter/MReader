@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * @author Balnk
@@ -53,7 +54,7 @@ public class JSONParse_PHP {
             return jsonObject.getInt("code");
         } catch (JSONException e) {
             e.printStackTrace();
-            if (JSON == "") {
+            if (Objects.equals(JSON, "")) {
                 return SERVER_CONNECTION_ERROR;
             }
             return STATUS_PARSE_FAIL_INNER;

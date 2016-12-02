@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
 import com.yuanchuangli.mreader.R;
 import com.yuanchuangli.mreader.model.bean.user.User;
 import com.yuanchuangli.mreader.parse.JSONParse_PHP;
@@ -45,6 +47,8 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
     private boolean isStop = false;
     private static final String TAG = "LoginActivity";
     private UserLoginPresenter mUserLoginPresenter = new UserLoginPresenter(this);
+    private IUiListener iUiListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,15 +217,16 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
         ActivityCollector.removeActivity(this);
     }
 
-//    /**
-//     * qq的返回的数据
-//     *
-//     * @param requestCode
-//     * @param resultCode
-//     * @param data
-//     */
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        Tencent.onActivityResultData(requestCode, resultCode, data, new BaseUiListener());
-//    }
+    /**
+     * 接收qq的返回的数据
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Tencent.onActivityResultData(requestCode, resultCode, data, null);
+        LogUtils.i("data", data.getStringExtra("key_response"));
+    }
 }
