@@ -4,6 +4,8 @@ import com.yuanchuangli.mreader.api.ServerInterface_POST;
 import com.yuanchuangli.mreader.model.bean.user.BaseUser;
 import com.yuanchuangli.mreader.parse.JSONParse_PHP;
 import com.yuanchuangli.mreader.utils.LogUtils;
+import com.yuanchuangli.mreader.utils.SharedPreferenceUtil;
+import com.yuanchuangli.mreader.utils.init.BaseApplication;
 
 /**
  * @author Blank
@@ -19,10 +21,12 @@ public class UserBiz implements IUserBiz {
             public void run() {
                 String json = ServerInterface_POST.checkPass(user);
                 int code = JSONParse_PHP.getStatus(json);
+                String token = JSONParse_PHP.getToken(json);
                 LogUtils.i("Cancle", "boolean is" + loginListener.isCancleLogin());
                 if (loginListener.isCancleLogin()) return;
                 switch (code) {
                     case JSONParse_PHP.STATUS_SUCCESS:
+                        SharedPreferenceUtil.saveUser(BaseApplication.getContext(), null, null, token);
                         loginListener.loginSuccess(user);
                         break;
                     default:

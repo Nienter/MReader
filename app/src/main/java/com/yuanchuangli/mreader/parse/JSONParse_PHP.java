@@ -1,5 +1,7 @@
 package com.yuanchuangli.mreader.parse;
 
+import android.content.SharedPreferences;
+
 import com.yuanchuangli.mreader.model.bean.doc.DocBean;
 import com.yuanchuangli.mreader.utils.LogUtils;
 

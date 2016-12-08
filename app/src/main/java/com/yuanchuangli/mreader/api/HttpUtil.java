@@ -1,5 +1,7 @@
 package com.yuanchuangli.mreader.api;
 
+import android.util.Log;
+
 import com.yuanchuangli.mreader.utils.CreateSignUtil;
 import com.yuanchuangli.mreader.utils.LogUtils;
 
@@ -106,7 +108,8 @@ public class HttpUtil {
                     sb.append(result);
                 }
             } else {
-                return null;
+                Log.i("INFO", code + "错误");
+                return "{code=" + code + "}";
             }
         } catch (IOException e) {
             e.printStackTrace();

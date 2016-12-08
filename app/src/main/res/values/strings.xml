@@ -14,4 +14,13 @@
     <string name="java_login_paser_in">内部解析错误</string>
     <string name="java_login_space_input">账户或密码为空</string>
     <string name="java_login_networkerror">网络不可用</string>
+
+
+    <!--navigationview 界面-->
+    <string name="navigation_doc_seclected_title">精选文档</string>
+    <string name="navigation_mydoc">我的文档</string>
+    <string name="navigation_mymessage_title">我的消息</string>
+    <string name="navigation_recharge_title">充值</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
 </resources>

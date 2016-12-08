@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author Blank
- * @description ActivityCollector 类的管理器
+ * @description ActivityCollector activity的管理器
  * @time 2016/11/24 18:48
  */
 

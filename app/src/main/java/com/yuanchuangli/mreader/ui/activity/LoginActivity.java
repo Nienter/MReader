@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -18,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.yuanchuangli.mreader.R;
 import com.yuanchuangli.mreader.model.bean.user.User;
@@ -27,6 +27,7 @@ import com.yuanchuangli.mreader.presenter.UserLoginPresenter;
 import com.yuanchuangli.mreader.ui.view.IUserLoginView;
 import com.yuanchuangli.mreader.utils.ActivityCollector;
 import com.yuanchuangli.mreader.utils.LogUtils;
+import com.yuanchuangli.mreader.utils.SharedPreferenceUtil;
 import com.yuanchuangli.mreader.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -40,21 +41,38 @@ import java.util.List;
 public class LoginActivity extends BaseActivity implements IUserLoginView, View.OnClickListener {
     private EditText mEtUsername, mEtPassword;
     private Resources res;
-    private Button mBtnLogin;
-    private ImageView img_logo, ic_login_qq;
+    private ImageView img_logo;
     private ProgressDialog mPdLoading;
     private String str_name, str_psw;
     private boolean isStop = false;
     private static final String TAG = "LoginActivity";
     private UserLoginPresenter mUserLoginPresenter = new UserLoginPresenter(this);
-    private IUiListener iUiListener;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    /**
+     * 保存用户最近登录的文件
+     */
+    private final static String SHAR_PRE_FILENAME_LOGINCONFIG = "user";
+    /**
+     * 保存用户的账户的key
+     */
+    private final static String SHAR_PRE_USERNAME = "username";
+    /**
+     * 保存用户密码的key
+     */
+    private final static String SHAR_PRE_PASSWORD = "password";
+    /**
+     * 保存用户的token
+     */
+    private final static String SHAR_PRE_TOKEN = "token";
+
+    // private IUiListener iUiListener;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().hide();
         res = getResources();
         findView();
         ActivityCollector.addActivity(this);//加入管理
@@ -68,9 +86,9 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
     public void findView() {
         mEtUsername = (EditText) findViewById(R.id.id_et_username);
         mEtPassword = (EditText) findViewById(R.id.id_et_psw);
-        mBtnLogin = (Button) findViewById(R.id.id_btn_login);
+        Button mBtnLogin = (Button) findViewById(R.id.id_btn_login);
         img_logo = (ImageView) findViewById(R.id.id_img_logo);
-        ic_login_qq = (ImageView) findViewById(R.id.id_ic_qq);
+        ImageView ic_login_qq = (ImageView) findViewById(R.id.id_ic_qq);
         ic_login_qq.setOnClickListener(this);
         mBtnLogin.setOnClickListener(this);
 
@@ -110,9 +128,18 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
 
     @Override
     public void toHomeActivity() {
+        saveUser();
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        ToastUtils.showToast(this, "qq登陆成功");
-        ActivityCollector.removeActivity(this);
+        ToastUtils.showToast(this, "登录成功");
+        ActivityCollector.finishAll();
+    }
+
+    /**
+     * 保存用户的信息
+     */
+    private void saveUser() {
+        getAllText();
+        SharedPreferenceUtil.saveUser(this, str_name, str_psw, null);
     }
 
     @Override
@@ -127,6 +154,9 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
                 break;
             case JSONParse_PHP.STATUS_PARSE_FAIL_INNER:
                 ToastUtils.showToast(this, res.getString(R.string.java_login_paser_in));
+                break;
+            case 500:
+                ToastUtils.showToast(this, "服务器内部错误");
                 break;
         }
 
@@ -228,5 +258,13 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Tencent.onActivityResultData(requestCode, resultCode, data, null);
         LogUtils.i("data", data.getStringExtra("key_response"));
+    }
+
+    /**
+     * 实例化Sharepreference对象以及editor对象
+     */
+    public void getSharedPreferencesInstance() {
+        sharedPreferences = getSharedPreferences(SHAR_PRE_FILENAME_LOGINCONFIG, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 }
