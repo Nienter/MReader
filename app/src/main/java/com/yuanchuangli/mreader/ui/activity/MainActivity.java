@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(R.string.navigation_doc_seclected_title);
         setSupportActionBar(mToolbar);
