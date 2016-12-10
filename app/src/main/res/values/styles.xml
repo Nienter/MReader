@@ -21,6 +21,9 @@
 
     <style name="DrawerLayoutTheme" parent="AppTheme"></style>
 
+    <style name="AppTheme.FullScreen">
+        <item name="android:windowFullscreen">true</item>
+    </style>
 
     <style name="CardView.Content" parent="android:Widget">
         <item name="android:paddingLeft">16dp</item>

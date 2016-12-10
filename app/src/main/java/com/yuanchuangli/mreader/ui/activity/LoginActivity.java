@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -47,8 +46,6 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
     private boolean isStop = false;
     private static final String TAG = "LoginActivity";
     private UserLoginPresenter mUserLoginPresenter = new UserLoginPresenter(this);
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
     /**
      * 保存用户最近登录的文件
      */
@@ -75,7 +72,6 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
         setContentView(R.layout.activity_login);
         res = getResources();
         findView();
-        ActivityCollector.addActivity(this);//加入管理
         initLogoAnim();
     }
 
@@ -89,7 +85,9 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
         Button mBtnLogin = (Button) findViewById(R.id.id_btn_login);
         img_logo = (ImageView) findViewById(R.id.id_img_logo);
         ImageView ic_login_qq = (ImageView) findViewById(R.id.id_ic_qq);
+        assert ic_login_qq != null;
         ic_login_qq.setOnClickListener(this);
+        assert mBtnLogin != null;
         mBtnLogin.setOnClickListener(this);
 
     }
@@ -131,7 +129,7 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
         saveUser();
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         ToastUtils.showToast(this, "登录成功");
-        ActivityCollector.finishAll();
+        finish();
     }
 
     /**
@@ -244,8 +242,9 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        ActivityCollector.removeActivity(this);
+        ActivityCollector.finishAll();
     }
+
 
     /**
      * 接收qq的返回的数据
@@ -257,14 +256,15 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Tencent.onActivityResultData(requestCode, resultCode, data, null);
-        LogUtils.i("data", data.getStringExtra("key_response"));
     }
 
-    /**
-     * 实例化Sharepreference对象以及editor对象
-     */
-    public void getSharedPreferencesInstance() {
-        sharedPreferences = getSharedPreferences(SHAR_PRE_FILENAME_LOGINCONFIG, MODE_PRIVATE);
-        editor = sharedPreferences.edit();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPdLoading != null && mPdLoading.isShowing()) {
+            mPdLoading.dismiss();
+        }
+
     }
+
 }

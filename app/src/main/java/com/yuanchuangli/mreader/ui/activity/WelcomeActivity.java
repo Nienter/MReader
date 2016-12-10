@@ -2,52 +2,61 @@ package com.yuanchuangli.mreader.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 
 import com.yuanchuangli.mreader.R;
-import com.yuanchuangli.mreader.ui.view.IWelcome;
+import com.yuanchuangli.mreader.presenter.WelcomePresenter;
+import com.yuanchuangli.mreader.ui.view.IWelcomeView;
 
-public class WelcomeActivity extends AppCompatActivity implements IWelcome {
+public class WelcomeActivity extends BaseActivity implements IWelcomeView {
     private static final int GOTO_MAIN_ACTIVITY = 0;
+    private WelcomePresenter welcomePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        mHandler.sendEmptyMessageDelayed(GOTO_MAIN_ACTIVITY, 8000);//3秒跳转
-//        if (SharedPreferenceUtil.getUser(this).getBoolean(SharedPreferenceUtil.SHAR_PRE_ISLOGIN, false)) {
-//            startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
-//
-//        }
-//
-//        hasBackground();
+        welcomePresenter = new WelcomePresenter(this);
+        welcomePresenter.init();
+        //mHandler.sendEmptyMessageDelayed(GOTO_MAIN_ACTIVITY, 3000);//3秒跳转
+
+
+        //hasBackground();
     }
 
 
+//    private Handler mHandler = new Handler() {
+//        public void handleMessage(android.os.Message msg) {
+//
+//            switch (msg.what) {
+//                case GOTO_MAIN_ACTIVITY:
+//                    Intent intent = new Intent();
+//                    intent.setClass(WelcomeActivity.this, MainActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                    break;
+//
+//                default:
+//                    break;
+//            }
+//        }
+//
+//        ;
+//    };
+
     @Override
-    public void hasBackground() {
-        startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+    public void toHomeACtivity() {
+        Intent intent = new Intent();
+        intent.setClass(WelcomeActivity.this, MainActivity.class);
+        startActivity(intent);
         finish();
     }
 
-    private Handler mHandler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-
-            switch (msg.what) {
-                case GOTO_MAIN_ACTIVITY:
-                    Intent intent = new Intent();
-                    intent.setClass(WelcomeActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        ;
-    };
+    @Override
+    public void toLoginActivity() {
+        Intent intent = new Intent();
+        intent.setClass(WelcomeActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

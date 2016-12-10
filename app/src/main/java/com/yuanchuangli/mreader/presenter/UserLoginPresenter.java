@@ -7,11 +7,11 @@ import com.tencent.connect.UserInfo;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
 import com.yuanchuangli.mreader.model.bean.user.BaseUser;
-import com.yuanchuangli.mreader.model.biz.IQQBiz;
-import com.yuanchuangli.mreader.model.biz.IUserBiz;
-import com.yuanchuangli.mreader.model.biz.OnloginListener;
-import com.yuanchuangli.mreader.model.biz.QQBiz;
-import com.yuanchuangli.mreader.model.biz.UserBiz;
+import com.yuanchuangli.mreader.model.biz.QQ.IQQBiz;
+import com.yuanchuangli.mreader.model.biz.QQ.QQBiz;
+import com.yuanchuangli.mreader.model.biz.User.IUserBiz;
+import com.yuanchuangli.mreader.model.biz.User.OnloginListener;
+import com.yuanchuangli.mreader.model.biz.User.UserBiz;
 import com.yuanchuangli.mreader.parse.JSONParse_QQ;
 import com.yuanchuangli.mreader.ui.view.IUserLoginView;
 import com.yuanchuangli.mreader.utils.LogUtils;
@@ -27,7 +27,6 @@ public class UserLoginPresenter {
     private IUserLoginView userLoginView;
     private Handler mHandler = new Handler();
     private IQQBiz QQBiz;
-    public static IUiListener listener;
     private UserInfo userInfo;
 
     public UserLoginPresenter(IUserLoginView userLoginView) {
@@ -65,6 +64,7 @@ public class UserLoginPresenter {
                     public void run() {
                         userLoginView.hideLoading();
                         userLoginView.showFaildError(code);
+                        destory();
                     }
                 });
             }
@@ -95,8 +95,9 @@ public class UserLoginPresenter {
 //                        String expires = jo.getString("expires_in");
 //                        LogUtils.i("登录成功", "登录成功" + accessToken);
 //                        userLoginView.toHomeActivity();}
-                            UserInfo userInfo = JSONParse_QQ.getQQLoginInfo(value);
+                            userInfo = JSONParse_QQ.getQQLoginInfo(value);
                             userLoginView.toHomeActivity();
+                            destory();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -114,4 +115,13 @@ public class UserLoginPresenter {
 
         );
     }
+
+    public IUserLoginView destory() {
+        if (userLoginView != null) {
+            userLoginView = null;
+        }
+        return userLoginView;
+    }
+
+
 }

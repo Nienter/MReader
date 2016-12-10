@@ -3,7 +3,7 @@ package com.yuanchuangli.mreader.ui.view;
 import com.yuanchuangli.mreader.model.bean.user.User;
 
 /**
- * @author Balnk
+ * @author Blank
  * @description 用户登录的接口
  * @time 2016/11/24 18:29
  */

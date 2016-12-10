@@ -1,4 +1,4 @@
-package com.yuanchuangli.mreader.model.biz;
+package com.yuanchuangli.mreader.model.biz.QQ;
 
 import android.app.Activity;
 

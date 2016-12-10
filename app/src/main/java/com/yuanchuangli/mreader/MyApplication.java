@@ -3,6 +3,8 @@ package com.yuanchuangli.mreader;
 import android.app.Application;
 import android.content.Context;
 
+import com.yuanchuangli.mreader.utils.SharedPreferenceUtil;
+
 /**
  * @author Blank
  * @description MyApplication 用于初始化整个应用
@@ -17,6 +19,10 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
+        SharedPreferenceUtil.SharedPreferencesInit(this);
+
+
+
     }
 
     public static Context getContext() {

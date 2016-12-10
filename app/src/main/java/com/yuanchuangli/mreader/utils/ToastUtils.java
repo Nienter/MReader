@@ -43,7 +43,7 @@ public class ToastUtils {
      */
     public static void showToast(Context context, String message) {
         if (toast == null) {
-            toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+            toast = Toast.makeText(context.getApplicationContext(), message, Toast.LENGTH_SHORT);
             toast.show();
             oneTime = System.currentTimeMillis();
         } else {

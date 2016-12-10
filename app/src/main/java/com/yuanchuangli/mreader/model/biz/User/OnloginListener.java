@@ -1,4 +1,4 @@
-package com.yuanchuangli.mreader.model.biz;
+package com.yuanchuangli.mreader.model.biz.User;
 
 import com.yuanchuangli.mreader.model.bean.user.BaseUser;
 

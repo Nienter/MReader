@@ -92,6 +92,7 @@ public class CleanableEditText extends EditText {
         public void afterTextChanged(Editable s) {
             boolean isVisible = getText().toString().length() >= 1;
             setClearDrawableVisible(isVisible);
+
         }
 
         @Override

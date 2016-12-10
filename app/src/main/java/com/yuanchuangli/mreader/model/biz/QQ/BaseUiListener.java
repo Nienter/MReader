@@ -1,4 +1,4 @@
-package com.yuanchuangli.mreader.model.biz;
+package com.yuanchuangli.mreader.model.biz.QQ;
 
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
@@ -9,7 +9,9 @@ import com.yuanchuangli.mreader.utils.init.BaseApplication;
 import org.json.JSONObject;
 
 /**
- * Created by Blank on 2016/12/1 14:06
+ * @author qq的监听器 暂时未用
+ * @description BaseUiListener
+ * @time 2016/12/9 10:31
  */
 
 public class BaseUiListener implements IUiListener {
@@ -23,11 +25,11 @@ public class BaseUiListener implements IUiListener {
         }
         JSONObject jsonResponse = (JSONObject) response;
         if (jsonResponse != null && jsonResponse.length() == 0) {
-            LogUtils.i(TAG, "登陆成功" + response.toString());
+            LogUtils.i(TAG, "登录成功" + response.toString());
             return;
         }
 
-        LogUtils.i(TAG, "登陆成功" + response.toString());
+        LogUtils.i(TAG, "登录成功" + response.toString());
         doComplete((JSONObject) response);
     }
 
