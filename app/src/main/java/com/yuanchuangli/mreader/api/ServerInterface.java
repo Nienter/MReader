@@ -9,14 +9,13 @@ public class ServerInterface {
     /**
      * 请求的总接口，其他接口以此为基础扩展
      */
-    public final static String ADDRESS = "http://192.168.0.114/mobile/";
+    private final static String ADDRESS = "http://192.168.0.114/mobile/";
     /**
      * 登录请求的总接口
      */
     public final static String LOGIN_BASE_ADDRESS = ADDRESS + "login/";
     /**
      * 文档请求的总接口
-     *
      */
-    public final static String DOC_BASE_ADDRESS = ADDRESS+"api/";
+    public final static String DOC_BASE_ADDRESS = ADDRESS + "api/";
 }
