@@ -3,7 +3,6 @@ package com.yuanchuangli.mreader.presenter;
 import android.app.Activity;
 import android.os.Handler;
 
-import com.tencent.connect.UserInfo;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
 import com.yuanchuangli.mreader.model.bean.user.BaseUser;
@@ -12,7 +11,6 @@ import com.yuanchuangli.mreader.model.biz.QQ.QQBiz;
 import com.yuanchuangli.mreader.model.biz.User.IUserBiz;
 import com.yuanchuangli.mreader.model.biz.User.OnloginListener;
 import com.yuanchuangli.mreader.model.biz.User.UserBiz;
-import com.yuanchuangli.mreader.parse.JSONParse_QQ;
 import com.yuanchuangli.mreader.ui.view.IUserLoginView;
 import com.yuanchuangli.mreader.utils.LogUtils;
 
@@ -27,7 +25,6 @@ public class UserLoginPresenter {
     private IUserLoginView userLoginView;
     private Handler mHandler = new Handler();
     private IQQBiz QQBiz;
-    private UserInfo userInfo;
 
     public UserLoginPresenter(IUserLoginView userLoginView) {
         this.userLoginView = userLoginView;
@@ -48,6 +45,7 @@ public class UserLoginPresenter {
                     public void run() {
                         userLoginView.toHomeActivity();
                         userLoginView.hideLoading();
+                        ViewDestory();
                     }
                 });
             }
@@ -64,7 +62,6 @@ public class UserLoginPresenter {
                     public void run() {
                         userLoginView.hideLoading();
                         userLoginView.showFaildError(code);
-                        destory();
                     }
                 });
             }
@@ -95,9 +92,9 @@ public class UserLoginPresenter {
 //                        String expires = jo.getString("expires_in");
 //                        LogUtils.i("登录成功", "登录成功" + accessToken);
 //                        userLoginView.toHomeActivity();}
-                            userInfo = JSONParse_QQ.getQQLoginInfo(value);
+//                       UserInfo userInfo = JSONParse_QQ.getQQLoginInfo(value);
                             userLoginView.toHomeActivity();
-                            destory();
+                            ViewDestory();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -116,11 +113,16 @@ public class UserLoginPresenter {
         );
     }
 
-    public IUserLoginView destory() {
+    /**
+     * 前期发生了内存泄漏，发现还有引用，简单处理下，后期名字功能都要优化
+     *
+     * @return 空的引用
+     */
+    private IUserLoginView ViewDestory() {
         if (userLoginView != null) {
             userLoginView = null;
         }
-        return userLoginView;
+        return null;
     }
 
 
