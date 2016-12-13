@@ -44,27 +44,7 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
     private ProgressDialog mPdLoading;
     private String str_name, str_psw;
     private boolean isStop = false;
-    private static final String TAG = "LoginActivity";
     private UserLoginPresenter mUserLoginPresenter = new UserLoginPresenter(this);
-    /**
-     * 保存用户最近登录的文件
-     */
-    private final static String SHAR_PRE_FILENAME_LOGINCONFIG = "user";
-    /**
-     * 保存用户的账户的key
-     */
-    private final static String SHAR_PRE_USERNAME = "username";
-    /**
-     * 保存用户密码的key
-     */
-    private final static String SHAR_PRE_PASSWORD = "password";
-    /**
-     * 保存用户的token
-     */
-    private final static String SHAR_PRE_TOKEN = "token";
-
-    // private IUiListener iUiListener;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,15 +72,6 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
 
     }
 
-    @Override
-    public String getUsername() {
-        return mEtUsername.getText().toString();
-    }
-
-    @Override
-    public String getPassword() {
-        return mEtPassword.getText().toString();
-    }
 
     @Override
     public void showLoading() {
@@ -182,6 +153,7 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
                 getAllText();
                 if (checkInput() && isOpenNetwork())
                     mUserLoginPresenter.login();
+
                 break;
             case R.id.id_ic_qq:
                 mUserLoginPresenter.login_qq(this);
@@ -192,7 +164,7 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
     /**
      * 判断输入的合法性
      *
-     * @return
+     * @return 检查填写完整与否
      */
     private boolean checkInput() {
         if (TextUtils.isEmpty(str_name) | TextUtils.isEmpty(str_psw)) {
@@ -249,9 +221,9 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
     /**
      * 接收qq的返回的数据
      *
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * @param requestCode 请求码
+     * @param resultCode  返回码
+     * @param data        数据
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -264,7 +236,7 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
         if (mPdLoading != null && mPdLoading.isShowing()) {
             mPdLoading.dismiss();
         }
-
+        setContentView(R.layout.view_null);
     }
 
 }

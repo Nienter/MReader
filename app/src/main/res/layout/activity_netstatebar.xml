@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/net_view_rl"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@color/google_yellow"
+    android:clickable="true"
+    android:visibility="visible">
+
+    <ImageView
+        android:id="@+id/id_warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_msp_edit_warning" />
+
+    <TextView
+        android:id="@+id/net_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/id_warning"
+        android:layout_toRightOf="@id/id_warning"
+        android:background="@color/google_yellow"
+        android:text="世界上最遥远的距离就是没有网"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:contentDescription="@null"
+        android:src="@drawable/arrow_right" />
+</RelativeLayout>

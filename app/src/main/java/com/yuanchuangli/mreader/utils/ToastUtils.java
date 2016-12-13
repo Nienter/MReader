@@ -58,6 +58,7 @@ public class ToastUtils {
                 toast.show();
             }
         }
+        context = null;
         oneTime = twoTime;
     }
 }

@@ -5,7 +5,9 @@ import android.app.Activity;
 import com.tencent.tauth.IUiListener;
 
 /**
- * Created by Blank on 2016/12/1 16:27
+ * @author qq业务的接口
+ * @description IQQBiz
+ * @time 2016/12/12 18:39
  */
 
 public interface IQQBiz {

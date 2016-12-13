@@ -20,6 +20,19 @@ public class DocBean {
 
     private String click;//点击率或下载率
 
+    public DocBean() {
+    }
+
+    ;
+
+    public DocBean(String updateTime, String needCoin, String title, String litpic, String click) {
+        this.updateTime = updateTime;
+        this.needCoin = needCoin;
+        this.title = title;
+        this.litpic = litpic;
+        this.click = click;
+    }
+
     public String getUpdateTime() {
         return updateTime;
     }

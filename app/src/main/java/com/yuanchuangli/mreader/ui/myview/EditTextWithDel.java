@@ -13,7 +13,7 @@ import android.widget.EditText;
 import com.yuanchuangli.mreader.R;
 
 /**
- * Created by Blank on 2016/11/25 10:39
+ * Created by Blank on 2016/11/25 10:39 暂时不用
  */
 
 public class EditTextWithDel extends EditText {
@@ -42,7 +42,7 @@ public class EditTextWithDel extends EditText {
     }
 
     private void init() {
-        imgInable = mContext.getResources().getDrawable(R.drawable.delete_gray);
+        imgInable = mContext.getResources().getDrawable(R.drawable.icon_delete_gray);
         imgAble = mContext.getResources().getDrawable(R.drawable.ic_login_delete);
 
         addTextChangedListener(new TextWatcher() {

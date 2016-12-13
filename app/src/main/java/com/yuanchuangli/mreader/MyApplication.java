@@ -7,7 +7,7 @@ import com.yuanchuangli.mreader.utils.SharedPreferenceUtil;
 
 /**
  * @author Blank
- * @description MyApplication 用于初始化整个应用
+ * @description MyApplication 用于初始化整个应用，暂时没有用，由BaseAPplication代替
  * @time 2016/11/24 18:32
  */
 
@@ -20,9 +20,6 @@ public class MyApplication extends Application {
         super.onCreate();
         mContext = getApplicationContext();
         SharedPreferenceUtil.SharedPreferencesInit(this);
-
-
-
     }
 
     public static Context getContext() {

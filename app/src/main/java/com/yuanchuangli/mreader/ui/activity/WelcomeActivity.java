@@ -7,51 +7,36 @@ import com.yuanchuangli.mreader.R;
 import com.yuanchuangli.mreader.presenter.WelcomePresenter;
 import com.yuanchuangli.mreader.ui.view.IWelcomeView;
 
+/**
+ * @author Blank
+ * @description WelcomeActivity 欢迎界面
+ * @time 2016/12/12 17:45
+ */
 public class WelcomeActivity extends BaseActivity implements IWelcomeView {
-    private static final int GOTO_MAIN_ACTIVITY = 0;
-    private WelcomePresenter welcomePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        welcomePresenter = new WelcomePresenter(this);
+        WelcomePresenter welcomePresenter = new WelcomePresenter(this);
         welcomePresenter.init();
-        //mHandler.sendEmptyMessageDelayed(GOTO_MAIN_ACTIVITY, 3000);//3秒跳转
-
-
-        //hasBackground();
     }
 
-
-//    private Handler mHandler = new Handler() {
-//        public void handleMessage(android.os.Message msg) {
-//
-//            switch (msg.what) {
-//                case GOTO_MAIN_ACTIVITY:
-//                    Intent intent = new Intent();
-//                    intent.setClass(WelcomeActivity.this, MainActivity.class);
-//                    startActivity(intent);
-//                    finish();
-//                    break;
-//
-//                default:
-//                    break;
-//            }
-//        }
-//
-//        ;
-//    };
-
+    /**
+     * 跳转到主界面
+     */
     @Override
-    public void toHomeACtivity() {
+    public void toHomeActivity() {
         Intent intent = new Intent();
         intent.setClass(WelcomeActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * 当发现没有用户资料的时候强制重新登录
+     */
     @Override
     public void toLoginActivity() {
         Intent intent = new Intent();

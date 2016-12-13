@@ -6,7 +6,6 @@ import com.yuanchuangli.mreader.model.biz.Welcome.IWelcomeBiz;
 import com.yuanchuangli.mreader.model.biz.Welcome.IWelcomeListener;
 import com.yuanchuangli.mreader.model.biz.Welcome.WelcomeBiz;
 import com.yuanchuangli.mreader.ui.view.IWelcomeView;
-import com.yuanchuangli.mreader.utils.LogUtils;
 
 /**
  * Created by Blank on 2016/12/9 10:25
@@ -20,25 +19,26 @@ public class WelcomePresenter {
     public WelcomePresenter(IWelcomeView iWelcomeView) {
         this.WelcomeBiz = new WelcomeBiz();
         this.iWelcomeView = iWelcomeView;
-        LogUtils.i("WelcomePresenter", "初始化完成");
     }
 
+    /**
+     * 初始化欢迎界面
+     * 延时3秒，后面可以更改为初始化整个app时的耗时
+     */
     public void init() {
-        LogUtils.i("WelcomePresenter", "初始化完成2");
         WelcomeBiz.init(new IWelcomeListener() {
             @Override
-            public void initSuccess() {
+            public void initToHome() {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        LogUtils.i("WelcomePresenter", "初始化完成3");
-                        iWelcomeView.toHomeACtivity();
+                        iWelcomeView.toHomeActivity();
                     }
                 }, 3000);
             }
 
             @Override
-            public void initFail() {
+            public void initToLogin() {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {

@@ -40,7 +40,6 @@ public class BaseApplication extends Application {
      */
     private void init() {
         mTecent = Tencent.createInstance(Constants.QQ_API_ID, mContext);
-
     }
 
     @Override

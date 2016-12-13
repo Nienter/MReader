@@ -9,10 +9,6 @@ import com.yuanchuangli.mreader.model.bean.user.User;
  */
 
 public interface IUserLoginView {
-    String getUsername();//获得用户名
-
-    String getPassword();//获得密码
-
     void showLoading();//显示进度
 
     User getUser();//获取用户对象

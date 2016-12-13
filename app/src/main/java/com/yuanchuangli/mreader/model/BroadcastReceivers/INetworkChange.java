@@ -1,7 +1,9 @@
 package com.yuanchuangli.mreader.model.BroadcastReceivers;
 
 /**
- * Created by Blank on 2016/11/25 16:25
+ * @author Blank
+ * @description 网络变化的接口
+ * @time 2016/12/12 18:10
  */
 
 public interface INetworkChange {

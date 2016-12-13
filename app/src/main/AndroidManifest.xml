@@ -52,7 +52,11 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 注册的广播接收器，现在未用 -->
         <!-- <receiver android:name=".utils.init.StartAppReceiver" /> -->
-
+        <receiver android:name=".model.BroadcastReceivers.NetworkReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

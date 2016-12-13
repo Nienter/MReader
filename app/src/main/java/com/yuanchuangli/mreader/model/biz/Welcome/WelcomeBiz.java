@@ -17,9 +17,9 @@ public class WelcomeBiz implements IWelcomeBiz {
                 LogUtils.i("SHARE", "到了WELCOMEBIZ");
                 LogUtils.i("判断？", "6666" + SharedPreferenceUtil.getUser(BaseApplication.getContext()).contains(SharedPreferenceUtil.SHAR_PRE_TOKEN));
                 if (SharedPreferenceUtil.getUser(BaseApplication.getContext()).contains(SharedPreferenceUtil.SHAR_PRE_TOKEN)) {
-                    iWelcomeListener.initSuccess();
+                    iWelcomeListener.initToHome();
                 } else {
-                    iWelcomeListener.initFail();
+                    iWelcomeListener.initToLogin();
                 }
             }
         }.start();

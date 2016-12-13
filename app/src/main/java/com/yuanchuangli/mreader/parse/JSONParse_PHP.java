@@ -1,6 +1,6 @@
 package com.yuanchuangli.mreader.parse;
 
-import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.yuanchuangli.mreader.model.bean.doc.DocBean;
 import com.yuanchuangli.mreader.utils.LogUtils;
@@ -10,7 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * @author Balnk
@@ -56,7 +55,7 @@ public class JSONParse_PHP {
             return jsonObject.getInt("code");
         } catch (JSONException e) {
             e.printStackTrace();
-            if (Objects.equals(JSON, "")) {
+            if (TextUtils.isEmpty(JSON)) {
                 return SERVER_CONNECTION_ERROR;
             }
             return STATUS_PARSE_FAIL_INNER;
@@ -69,7 +68,7 @@ public class JSONParse_PHP {
      * @param JSON 服务器传回的字符串
      * @return result的值
      */
-    public static String getInfo(String JSON) {
+    private static String getInfo(String JSON) {
         try {
             JSONObject jsonObject = new JSONObject(JSON);
             return jsonObject.getString("result");
@@ -102,8 +101,8 @@ public class JSONParse_PHP {
     /**
      * 解析token
      *
-     * @param JSON
-     * @return
+     * @param JSON json信息
+     * @return token
      */
     public static String getToken(String JSON) {
         try {
@@ -123,7 +122,7 @@ public class JSONParse_PHP {
      * 解析文档列表的方法
      *
      * @param JSON 服务器传过来的字符串
-     * @return列表
+     * @return 文档列表
      */
     public static ArrayList<DocBean> getDocList(String JSON) {
         LogUtils.i("DOC_LIST", JSON);

@@ -1,10 +1,11 @@
 package com.yuanchuangli.mreader.ui.view;
 
 /**
- * Created by Blank on 2016/12/8 19:21
+ * 欢迎界面的接口
  */
 
 public interface IWelcomeView {
-    void toHomeACtivity();
+    void toHomeActivity();
+
     void toLoginActivity();
 }

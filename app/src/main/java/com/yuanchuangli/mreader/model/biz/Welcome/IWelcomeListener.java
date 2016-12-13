@@ -5,7 +5,7 @@ package com.yuanchuangli.mreader.model.biz.Welcome;
  */
 
 public interface IWelcomeListener {
-    void initSuccess();
+    void initToHome();
 
-    void initFail();
+    void initToLogin();
 }

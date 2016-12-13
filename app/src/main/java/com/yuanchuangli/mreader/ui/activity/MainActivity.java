@@ -4,33 +4,40 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yuanchuangli.mreader.R;
-import com.yuanchuangli.mreader.ui.Fragment.MyDocFragment;
-import com.yuanchuangli.mreader.ui.Fragment.MyMessageFragment;
-import com.yuanchuangli.mreader.ui.Fragment.RechargeFragment;
-import com.yuanchuangli.mreader.ui.Fragment.SelectedDocFragment;
+import com.yuanchuangli.mreader.ui.fragment.MyDocFragment;
+import com.yuanchuangli.mreader.ui.fragment.MyMessageFragment;
+import com.yuanchuangli.mreader.ui.fragment.RechargeFragment;
+import com.yuanchuangli.mreader.ui.fragment.SelectedDocFragment;
+import com.yuanchuangli.mreader.utils.ActivityCollector;
 import com.yuanchuangli.mreader.utils.BackHandledFragment;
+import com.yuanchuangli.mreader.utils.LogUtils;
+import com.yuanchuangli.mreader.utils.NetUtils;
 
 /**
  *
  */
-public class MainActivity extends AppCompatActivity implements BackHandledFragment.BackHandlerInterface {
+public class MainActivity extends BaseActivity implements BackHandledFragment.BackHandlerInterface, View.OnClickListener {
 
-
+    private RelativeLayout net_view_rl;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar mToolbar;
     private BackHandledFragment selectedFragment;
     private NavigationView mNavigationView;
+    //保存当前的Acticity
+    public static MainActivity mainActivity;
+    //记录是否网络通畅
+    public static boolean netIsWork;
 
 
     @Override
@@ -42,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
         mToolbar.setTitle(R.string.navigation_doc_seclected_title);
         setSupportActionBar(mToolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawer_layout);
-
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open,
                 R.string.drawer_close);
         mDrawerToggle.syncState();
@@ -52,9 +58,20 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
         mNavigationView.setItemTextAppearance(R.style.MenuTextStyle);
         setupDrawerContent(mNavigationView);
         setUpProfileImage();
-
-
+        findView();
+        init();
         switchToBook();
+    }
+
+    private void init() {
+        mainActivity = this;
+        netIsWork = NetUtils.isNetworkConnected(this);
+        updateNetWorkText();
+    }
+
+    private void findView() {
+        net_view_rl = (RelativeLayout) findViewById(R.id.net_view_rl);
+        net_view_rl.setOnClickListener(this);
     }
 
     private void switchToBook() {
@@ -142,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
             Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
             exitTime = System.currentTimeMillis();
         } else {
-            finish();
+            ActivityCollector.finishAll();
         }
     }
 
@@ -158,5 +175,36 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
 
     }
 
+    /**
+     * 根据netIsWork的值来决定是显示网络提示
+     */
+    public static void updateNetWorkText() {
+        if (mainActivity == null) {
+            return;
+        }
+        if (netIsWork) {
+            mainActivity.net_view_rl.setVisibility(View.GONE);
+            LogUtils.i("NetWork1", "网络可用");
+        } else {
+            mainActivity.net_view_rl.setVisibility(View.VISIBLE);
+            LogUtils.i("NetWork1", "网络不可用");
+        }
+    }
 
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.net_view_rl:
+                NetUtils.startToSetting(mainActivity);
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        mainActivity = null;
+        setContentView(R.layout.view_null);
+        super.onDestroy();
+    }
 }
