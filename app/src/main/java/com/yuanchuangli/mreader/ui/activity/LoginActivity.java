@@ -22,7 +22,7 @@ import com.tencent.tauth.Tencent;
 import com.yuanchuangli.mreader.R;
 import com.yuanchuangli.mreader.model.bean.user.User;
 import com.yuanchuangli.mreader.parse.JSONParse_PHP;
-import com.yuanchuangli.mreader.presenter.UserLoginPresenter;
+import com.yuanchuangli.mreader.presenter.impl.UserLoginPresenter;
 import com.yuanchuangli.mreader.ui.view.IUserLoginView;
 import com.yuanchuangli.mreader.utils.ActivityCollector;
 import com.yuanchuangli.mreader.utils.LogUtils;
@@ -65,10 +65,13 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
         Button mBtnLogin = (Button) findViewById(R.id.id_btn_login);
         img_logo = (ImageView) findViewById(R.id.id_img_logo);
         ImageView ic_login_qq = (ImageView) findViewById(R.id.id_ic_qq);
+        ImageView ic_login_weixin = (ImageView) findViewById(R.id.id_ic_weixin);
         assert ic_login_qq != null;
         ic_login_qq.setOnClickListener(this);
         assert mBtnLogin != null;
         mBtnLogin.setOnClickListener(this);
+        assert ic_login_weixin != null;
+        ic_login_weixin.setOnClickListener(this);
 
     }
 
@@ -96,9 +99,10 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
     }
 
     @Override
-    public void toHomeActivity() {
+    public void toHomeActivity(User user) {
         saveUser();
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class).putExtra("user_data", user));
+        LogUtils.i("USER", user.toString());
         ToastUtils.showToast(this, "登录成功");
         finish();
     }
@@ -153,10 +157,12 @@ public class LoginActivity extends BaseActivity implements IUserLoginView, View.
                 getAllText();
                 if (checkInput() && isOpenNetwork())
                     mUserLoginPresenter.login();
-
                 break;
             case R.id.id_ic_qq:
                 mUserLoginPresenter.login_qq(this);
+                break;
+            case R.id.id_ic_weixin:
+                mUserLoginPresenter.login_weixin(this);
                 break;
         }
     }

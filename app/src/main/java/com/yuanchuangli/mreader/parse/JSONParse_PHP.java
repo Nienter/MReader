@@ -3,6 +3,7 @@ package com.yuanchuangli.mreader.parse;
 import android.text.TextUtils;
 
 import com.yuanchuangli.mreader.model.bean.doc.DocBean;
+import com.yuanchuangli.mreader.model.bean.user.User;
 import com.yuanchuangli.mreader.utils.LogUtils;
 
 import org.json.JSONArray;
@@ -117,6 +118,34 @@ public class JSONParse_PHP {
         }
 
     }
+
+    /**
+     * 解析用户的基本信息
+     *
+     * @param JSON 登录请求返回的json
+     * @return 得到的用户信息
+     */
+    public static User getUserBaseInfo(String JSON) {
+        try {
+            String info = getInfo(JSON);
+            JSONObject jsonObject = new JSONObject(info);
+            LogUtils.i("COIN", "coin是" + jsonObject.getString("money"));
+            LogUtils.i("avatar", "avatar是" + jsonObject.getString("avatar"));
+            String coin = jsonObject.getString("money");
+            String userImage = jsonObject.getString("avatar");
+            User user = new User();
+            user.setCoin(coin);
+            if (!TextUtils.isEmpty(userImage)) {
+                user.setImagePath(userImage);
+            }
+            return user;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
 
     /**
      * 解析文档列表的方法

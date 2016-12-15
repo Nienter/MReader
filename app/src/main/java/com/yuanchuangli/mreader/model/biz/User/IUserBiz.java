@@ -1,6 +1,6 @@
 package com.yuanchuangli.mreader.model.biz.User;
 
-import com.yuanchuangli.mreader.model.bean.user.BaseUser;
+import com.yuanchuangli.mreader.model.bean.user.User;
 
 /**
  * @author Blank
@@ -9,5 +9,7 @@ import com.yuanchuangli.mreader.model.bean.user.BaseUser;
  */
 
 public interface IUserBiz {
-    void login(BaseUser user, OnloginListener onloginListener);
+    void login(User user, OnloginListener onloginListener);
+
+    //void getBaseInfo();
 }

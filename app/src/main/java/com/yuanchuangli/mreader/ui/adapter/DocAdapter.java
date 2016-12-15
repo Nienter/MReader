@@ -1,4 +1,4 @@
-package com.yuanchuangli.mreader.ui;
+package com.yuanchuangli.mreader.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;

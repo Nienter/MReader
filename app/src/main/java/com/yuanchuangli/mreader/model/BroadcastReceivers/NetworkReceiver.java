@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.yuanchuangli.mreader.ui.activity.MainActivity;
+import com.yuanchuangli.mreader.ui.activity.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +37,9 @@ public class NetworkReceiver extends BroadcastReceiver {
      * 网络不通畅
      */
     private void updateAppEnvironment_noNetWork() {
-        if (MainActivity.mainActivity != null) {
-            MainActivity.netIsWork = false;
-            MainActivity.updateNetWorkText();
+        if (HomeActivity.homeActivity != null) {
+            HomeActivity.netIsWork = false;
+            HomeActivity.updateNetWorkText();
         }
         // 如果网络断开。从集合中迭代。一个个通知
         for (INetworkChange change : lists) {
@@ -57,9 +57,9 @@ public class NetworkReceiver extends BroadcastReceiver {
      * @param context
      */
     private void updateAppEnvironment_hasNetWork(Context context) {
-        if (MainActivity.mainActivity != null) {
-            MainActivity.netIsWork = true;
-            MainActivity.updateNetWorkText();
+        if (HomeActivity.homeActivity != null) {
+            HomeActivity.netIsWork = true;
+            HomeActivity.updateNetWorkText();
         }
         // 如果网络断开。从集合中迭代。一个个通知
         for (INetworkChange change : lists) {

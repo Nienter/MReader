@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 
 import com.yuanchuangli.mreader.R;
 import com.yuanchuangli.mreader.model.bean.doc.DocBean;
-import com.yuanchuangli.mreader.ui.DocAdapter;
+import com.yuanchuangli.mreader.ui.adapter.DocAdapter;
 import com.yuanchuangli.mreader.ui.view.ISelectedDocFragment;
 
 import java.util.ArrayList;
@@ -47,8 +47,8 @@ public class SelectedDocFragment extends BaseFragment implements ISelectedDocFra
         super.onViewCreated(view, savedInstanceState);
         initDoc();
         recyclerView = (RecyclerView) view.findViewById(R.id.swipe_target);
-        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mLinearLayoutManager);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new DocAdapter(mDocBeenList);
         recyclerView.setAdapter(adapter);
     }

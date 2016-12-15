@@ -155,14 +155,14 @@
             android:src="@drawable/ic_login_qq" />
 
         <com.yuanchuangli.mreader.ui.myview.ThumbnailView
-            android:id="@+id/id_ic_weixin"
+            android:id="@+id/id_ic_zhifubao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/ic_login_zhifubao" />
 
         <com.yuanchuangli.mreader.ui.myview.ThumbnailView
-            android:id="@+id/id_ic_xinlang"
+            android:id="@+id/id_ic_weixin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

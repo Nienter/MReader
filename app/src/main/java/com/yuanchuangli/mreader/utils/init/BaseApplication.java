@@ -3,6 +3,8 @@ package com.yuanchuangli.mreader.utils.init;
 import android.app.Application;
 import android.content.Context;
 
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.tencent.tauth.Tencent;
 import com.yuanchuangli.mreader.utils.Constants;
 import com.yuanchuangli.mreader.utils.LogUtils;
@@ -18,6 +20,7 @@ import com.yuanchuangli.mreader.utils.SharedPreferenceUtil;
 public class BaseApplication extends Application {
     private static Context mContext;
     private static Tencent mTecent;
+    private static IWXAPI mWeiXinApi;
 
     @Override
     public void onCreate() {
@@ -39,7 +42,12 @@ public class BaseApplication extends Application {
      * 初始化
      */
     private void init() {
+        //QQ
         mTecent = Tencent.createInstance(Constants.QQ_API_ID, mContext);
+        //通过WXAPIWXAPIFactory 获取IWAPI的实例
+        mWeiXinApi = WXAPIFactory.createWXAPI(mContext, Constants.WEIXIN_API_ID, true);
+        //将app注册到微信
+        mWeiXinApi.registerApp(Constants.WEIXIN_API_ID);
     }
 
     @Override
@@ -61,5 +69,9 @@ public class BaseApplication extends Application {
 
     public static Tencent getTecent() {
         return mTecent;
+    }
+
+    public static IWXAPI getIWXAPI() {
+        return mWeiXinApi;
     }
 }

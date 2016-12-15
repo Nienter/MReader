@@ -7,6 +7,7 @@ package com.yuanchuangli.mreader.utils;
 public class Constants {
     // QQ的APPID
     public final static String QQ_API_ID = "1105783389";
-
+    //WEIXIN的APPID
+    public final static String WEIXIN_API_ID = "wxffda82b1d0149ca5";
 
 }

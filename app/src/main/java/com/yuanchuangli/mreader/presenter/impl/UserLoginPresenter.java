@@ -1,16 +1,18 @@
-package com.yuanchuangli.mreader.presenter;
+package com.yuanchuangli.mreader.presenter.impl;
 
 import android.app.Activity;
 import android.os.Handler;
 
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
-import com.yuanchuangli.mreader.model.bean.user.BaseUser;
+import com.yuanchuangli.mreader.model.bean.user.User;
 import com.yuanchuangli.mreader.model.biz.QQ.IQQBiz;
 import com.yuanchuangli.mreader.model.biz.QQ.QQBiz;
 import com.yuanchuangli.mreader.model.biz.User.IUserBiz;
 import com.yuanchuangli.mreader.model.biz.User.OnloginListener;
 import com.yuanchuangli.mreader.model.biz.User.UserBiz;
+import com.yuanchuangli.mreader.model.biz.WeiXin.IWeiXinBiz;
+import com.yuanchuangli.mreader.model.biz.WeiXin.WeiXinBiz;
 import com.yuanchuangli.mreader.ui.view.IUserLoginView;
 import com.yuanchuangli.mreader.utils.LogUtils;
 
@@ -25,11 +27,13 @@ public class UserLoginPresenter {
     private IUserLoginView userLoginView;
     private Handler mHandler = new Handler();
     private IQQBiz QQBiz;
+    private IWeiXinBiz weiXinBiz;
 
     public UserLoginPresenter(IUserLoginView userLoginView) {
         this.userLoginView = userLoginView;
         this.userBiz = new UserBiz();
         this.QQBiz = new QQBiz();
+        this.weiXinBiz = new WeiXinBiz();
     }
 
     /**
@@ -39,11 +43,11 @@ public class UserLoginPresenter {
         userLoginView.showLoading();
         userBiz.login(userLoginView.getUser(), new OnloginListener() {
             @Override
-            public void loginSuccess(BaseUser user) {
+            public void loginSuccess(final User user) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        userLoginView.toHomeActivity();
+                        userLoginView.toHomeActivity(user);
                         userLoginView.hideLoading();
                         ViewDestory();
                     }
@@ -93,7 +97,8 @@ public class UserLoginPresenter {
 //                        LogUtils.i("登录成功", "登录成功" + accessToken);
 //                        userLoginView.toHomeActivity();}
 //                       UserInfo userInfo = JSONParse_QQ.getQQLoginInfo(value);
-                            userLoginView.toHomeActivity();
+                            User user = new User();//为空
+                            userLoginView.toHomeActivity(user);
                             ViewDestory();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -111,6 +116,10 @@ public class UserLoginPresenter {
                 }
 
         );
+    }
+
+    public void login_weixin(final Activity activity) {
+        weiXinBiz.login(activity);
     }
 
     /**

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.yuanchuangli.mreader.R;
-import com.yuanchuangli.mreader.presenter.WelcomePresenter;
+import com.yuanchuangli.mreader.presenter.impl.WelcomePresenter;
 import com.yuanchuangli.mreader.ui.view.IWelcomeView;
 
 /**
@@ -29,7 +29,7 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView {
     @Override
     public void toHomeActivity() {
         Intent intent = new Intent();
-        intent.setClass(WelcomeActivity.this, MainActivity.class);
+        intent.setClass(WelcomeActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
     }

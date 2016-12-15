@@ -17,7 +17,7 @@ public interface IUserLoginView {
 
     boolean isCancleLodading();//取消对话框
 
-    void toHomeActivity();//跳转到主界面
+    void toHomeActivity(User user);//携带信息跳转到主界面
 
     void showFaildError(int code);//显示错误信息
 }
