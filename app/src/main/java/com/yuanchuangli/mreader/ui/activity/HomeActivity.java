@@ -5,7 +5,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,10 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.yuanchuangli.mreader.R;
 import com.yuanchuangli.mreader.model.bean.UpdateItem;
-import com.yuanchuangli.mreader.model.bean.user.User;
 import com.yuanchuangli.mreader.presenter.IHomePresenter;
 import com.yuanchuangli.mreader.presenter.impl.HomePresenter;
 import com.yuanchuangli.mreader.ui.fragment.MyDocFragment;
@@ -96,18 +93,19 @@ public class HomeActivity extends BaseActivity implements IHomeView, BackHandled
 
     /**
      * 设置用户的信息栏，在非第一次登录时，会发生崩溃，原因没有user对象
+     * 解决方案：重新设计接口
      */
     private void setUpProfileImage() {
         View headerView = mNavigationView.inflateHeaderView(R.layout.navigation_header);
         ImageView profileView = (ImageView) headerView.findViewById(R.id.profile_image);
         TextView username = (TextView) headerView.findViewById(R.id.id_nav_username);
         TextView coin = (TextView) headerView.findViewById(R.id.user_coin);
-        User user = (User) getIntent().getSerializableExtra("user_data");
-        LogUtils.i("USER", user.toString());
-        if (!TextUtils.isEmpty(user.getImagePath())) {
-            Glide.with(BaseApplication.getContext()).load(user.getImagePath()).into(profileView);
-        }
-        coin.setText(user.getCoin());
+        // User user = (User) getIntent().getSerializableExtra("user_data");
+        // LogUtils.i("USER", user.toString());
+        //if (!TextUtils.isEmpty(user.getImagePath())) {
+        //    Glide.with(BaseApplication.getContext()).load(user.getImagePath()).into(profileView);
+        //}
+        ///coin.setText(user.getCoin());
         username.setText(SharedPreferenceUtil.getUser(BaseApplication.getContext()).getString("username", null));
         if (profileView != null) {
             profileView.setOnClickListener(new View.OnClickListener() {

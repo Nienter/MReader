@@ -35,6 +35,14 @@ public class JSONParse_PHP {
      * 服务器异常
      */
     public final static int SERVER_CONNECTION_ERROR = 2;
+    /**
+     * 未登录请先登录（实际是token错误）
+     */
+    public final static int STATUS_TOKEN_ERROR = -1;
+    /**
+     * 签名错误
+     */
+    public final static int STATUS_SIGN_ERROR = -2;
 
     /**
      * 私有化构造函数，不允许别人初始化
@@ -160,16 +168,18 @@ public class JSONParse_PHP {
         try {
             JSONObject jsonObject = new JSONObject(JSON);
             JSONArray jsonArray = jsonObject.getJSONArray("result");
+            LogUtils.i("TAG", jsonArray.toString());
             for (int i = 0; i < jsonArray.length(); i++) {
                 DocBean doc = new DocBean();
                 JSONObject object = (JSONObject) jsonArray.get(i);
-                doc.setId(object.getString("id"));
+                LogUtils.i("TAGQ",object.toString());
+                // doc.setId(object.getString("id"));
                 doc.setClick(object.getString("click"));
                 doc.setLitpic(object.getString("litpic"));
                 doc.setNeedCoin(object.getString("needmoney"));
                 doc.setPageNumber(object.getString("pagenumber"));
                 doc.setTitle(object.getString("title"));
-                doc.setUpdateTime(object.getString("updatenumber"));
+                doc.setUpdateTime(object.getString("updatetime"));
                 docList.add(doc);
             }
             return docList;

@@ -12,11 +12,11 @@ import android.widget.ProgressBar;
 
 import com.yuanchuangli.mreader.R;
 import com.yuanchuangli.mreader.model.bean.doc.DocBean;
+import com.yuanchuangli.mreader.presenter.impl.SelectedDocPresenter;
 import com.yuanchuangli.mreader.ui.adapter.DocAdapter;
 import com.yuanchuangli.mreader.ui.view.ISelectedDocFragment;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * @author Blank
@@ -32,6 +32,7 @@ public class SelectedDocFragment extends BaseFragment implements ISelectedDocFra
     private DocBean[] docbean = {new DocBean("2014.10.13", "300", "理想主义", "http://swf13.book118.com/litpics//20150409/2129002-55252a01b5a27.jpg", "20")};
     private DocAdapter adapter;
     private ArrayList<DocBean> mDocBeenList = new ArrayList<>();
+    private SelectedDocPresenter selectedDocPresenter;
     private int currentPage = 1;
     private int psatVisiblesItems, visibleItemCount, totalItemCount;
 
@@ -51,15 +52,17 @@ public class SelectedDocFragment extends BaseFragment implements ISelectedDocFra
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new DocAdapter(mDocBeenList);
         recyclerView.setAdapter(adapter);
+        selectedDocPresenter.getSelectedDoc(1);
     }
 
     private void initDoc() {
         mDocBeenList.clear();
-        for (int i = 0; i < 50; i++) {
-            Random random = new Random();
-            int index = random.nextInt(docbean.length);
-            mDocBeenList.add(docbean[index]);
-        }
+//        for (int i = 0; i < 50; i++) {
+//            Random random = new Random();
+//            int index = random.nextInt(docbean.length);
+//            mDocBeenList.add(docbean[index]);
+//        }
+  selectedDocPresenter = new SelectedDocPresenter(this,getActivity());
     }
 
     @Override

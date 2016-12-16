@@ -8,7 +8,7 @@ import com.yuanchuangli.mreader.model.bean.user.User;
  * @time 2016/11/24 18:25
  */
 
-public interface OnloginListener {
+public interface IOnloginListener {
     void loginSuccess(User user);
 
     boolean isCancleLogin();

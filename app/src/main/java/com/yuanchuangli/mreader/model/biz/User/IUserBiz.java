@@ -9,7 +9,8 @@ import com.yuanchuangli.mreader.model.bean.user.User;
  */
 
 public interface IUserBiz {
-    void login(User user, OnloginListener onloginListener);
+    void login(User user, IOnloginListener onloginListener);
 
     //void getBaseInfo();
+    void getSelectedDoc(User user, IOngetDocListener iOngetDocListener);
 }

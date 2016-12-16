@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.yuanchuangli.mreader.R;
 import com.yuanchuangli.mreader.model.bean.doc.DocBean;
+import com.yuanchuangli.mreader.utils.DateUtils;
 
 import java.util.List;
 
@@ -60,6 +61,9 @@ public class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         DocBean doc = mDocList.get(position);
         holder.doc_title.setText(doc.getTitle());
+        holder.doc_click.setText(doc.getClick() + "次下载");
+        holder.doc_needCoin.setText(doc.getNeedCoin());
+        holder.doc_updateTime.setText(DateUtils.timeStamp2Date(doc.getUpdateTime(), "yyyy.MM.dd"));
         Glide.with(mContext).load(doc.getLitpic()).into(holder.doc_Image);
     }
 

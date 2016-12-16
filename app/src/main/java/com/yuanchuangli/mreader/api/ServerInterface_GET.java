@@ -1,7 +1,12 @@
 package com.yuanchuangli.mreader.api;
 
+import com.yuanchuangli.mreader.utils.SharedPreferenceUtil;
+import com.yuanchuangli.mreader.utils.init.BaseApplication;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 此类主要是使用GET方式请求的接口地址和方法
@@ -66,12 +71,14 @@ public class ServerInterface_GET {
     public static String getDocListFromServer() {
         try {
             URL url = new URL(REQUEST_PATH_DOC_CHOOSEN);
-            return HttpUtil.sendGet(url, null);
+            Map<String, Object> map = new HashMap<>();
+            map.put("token", SharedPreferenceUtil.getUser(BaseApplication.getContext()).getString("token", null));
+            return HttpUtil.sendGet(url, map);
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return "";
         }
     }
 
- 
+
 }

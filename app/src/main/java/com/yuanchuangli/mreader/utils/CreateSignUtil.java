@@ -1,5 +1,8 @@
 package com.yuanchuangli.mreader.utils;
 
+import com.yuanchuangli.mreader.api.ServerInterface_GET;
+import com.yuanchuangli.mreader.parse.JSONParse_PHP;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Arrays;
@@ -46,7 +49,7 @@ public class CreateSignUtil {
                 }
             }
             String temp2 = temp.toString();
-            String temp1 = temp.append("&" + SECRETKEY).append("&" + 1479784191 / 1800).toString();
+            String temp1 = temp.append("&" + SECRETKEY).append("&" + (JSONParse_PHP.getServerTime(ServerInterface_GET.getTimeFromServer()) / 1800)).toString();
             return temp2 + "&sign=" + MD5Util.md5(temp1.toString()).toUpperCase();
         }
 

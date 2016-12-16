@@ -9,7 +9,7 @@ import com.yuanchuangli.mreader.model.bean.user.User;
 import com.yuanchuangli.mreader.model.biz.QQ.IQQBiz;
 import com.yuanchuangli.mreader.model.biz.QQ.QQBiz;
 import com.yuanchuangli.mreader.model.biz.User.IUserBiz;
-import com.yuanchuangli.mreader.model.biz.User.OnloginListener;
+import com.yuanchuangli.mreader.model.biz.User.IOnloginListener;
 import com.yuanchuangli.mreader.model.biz.User.UserBiz;
 import com.yuanchuangli.mreader.model.biz.WeiXin.IWeiXinBiz;
 import com.yuanchuangli.mreader.model.biz.WeiXin.WeiXinBiz;
@@ -41,7 +41,7 @@ public class UserLoginPresenter {
      */
     public void login() {
         userLoginView.showLoading();
-        userBiz.login(userLoginView.getUser(), new OnloginListener() {
+        userBiz.login(userLoginView.getUser(), new IOnloginListener() {
             @Override
             public void loginSuccess(final User user) {
                 mHandler.post(new Runnable() {
