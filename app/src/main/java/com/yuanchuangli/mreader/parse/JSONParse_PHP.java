@@ -172,8 +172,8 @@ public class JSONParse_PHP {
             for (int i = 0; i < jsonArray.length(); i++) {
                 DocBean doc = new DocBean();
                 JSONObject object = (JSONObject) jsonArray.get(i);
-                LogUtils.i("TAGQ",object.toString());
-                // doc.setId(object.getString("id"));
+                LogUtils.i("TAGQ", object.toString());
+                doc.setId(object.getString("id"));
                 doc.setClick(object.getString("click"));
                 doc.setLitpic(object.getString("litpic"));
                 doc.setNeedCoin(object.getString("needmoney"));
@@ -188,5 +188,18 @@ public class JSONParse_PHP {
             return docList;
         }
 
+    }
+
+    public static String getDocInfo(String JSON) {
+        LogUtils.i("docinfo", JSON);
+        try {
+            String info = getInfo(JSON);
+            JSONObject jsonObject = new JSONObject(info);
+            String content = jsonObject.getString("url");
+            return content;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

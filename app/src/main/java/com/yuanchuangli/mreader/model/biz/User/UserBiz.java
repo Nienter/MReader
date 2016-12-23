@@ -71,6 +71,9 @@ public class UserBiz implements IUserBiz {
                     case JSONParse_PHP.STATUS_SIGN_ERROR:
                         iOngetDocListener.getDocFailed(code);
                         break;
+                    default:
+                        iOngetDocListener.getDocFailed(code);
+                        break;
                 }
             }
         }.start();

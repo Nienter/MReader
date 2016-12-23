@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_item_selecteddoc"
+            android:icon="@drawable/ic_vector_selecteddoc"
+            android:title="@string/navigation_doc_seclected_title" />
+        <item
+            android:id="@+id/navigation_item_mydoc"
+            android:icon="@drawable/ic_vector_mydoc"
+            android:title="@string/navigation_mydoc" />
+        <item
+            android:id="@+id/navigation_item_mymessage"
+            android:icon="@drawable/ic_vector_mymessage"
+            android:title="@string/navigation_mymessage_title" />
+
+        <item
+            android:id="@+id/navigation_item_recharge"
+            android:icon="@drawable/ic_vector_recharge"
+            android:title="@string/navigation_recharge_title" />
+        <item
+            android:id="@+id/navigation_item_setting"
+            android:icon="@drawable/ic_vector_setting"
+            android:title="@string/navigation_setting_title" />
+    </group>
+</menu>

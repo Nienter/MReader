@@ -10,6 +10,7 @@ import com.yuanchuangli.mreader.model.biz.User.UserBiz;
 import com.yuanchuangli.mreader.presenter.ISelectedDocPresenter;
 import com.yuanchuangli.mreader.ui.view.ISelectedDocFragment;
 import com.yuanchuangli.mreader.utils.CacheUtil;
+import com.yuanchuangli.mreader.utils.LogUtils;
 
 import java.util.ArrayList;
 
@@ -32,7 +33,8 @@ public class SelectedDocPresenter implements ISelectedDocPresenter {
     }
 
     @Override
-    public void getSelectedDoc(int page) {
+    public void getSelectedDoc(final int page) {
+        iSelectedDocFragment.showProgressDialog();
         userBiz.getSelectedDoc(new User(), new IOngetDocListener() {
             @Override
             public void getDocSuccess(User user, final ArrayList<DocBean> docList) {
@@ -41,12 +43,20 @@ public class SelectedDocPresenter implements ISelectedDocPresenter {
                     public void run() {
                         iSelectedDocFragment.hideProgressDialog();
                         iSelectedDocFragment.updateList(docList);
+                        mCacheUtil.put("doc" + page, docList);
                     }
                 });
             }
 
             @Override
-            public void getDocFailed(int code) {
+            public void getDocFailed(final int code) {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        iSelectedDocFragment.hideProgressDialog();
+                        iSelectedDocFragment.showError("错误码" + code);
+                    }
+                });
 
             }
         });
@@ -54,6 +64,10 @@ public class SelectedDocPresenter implements ISelectedDocPresenter {
 
     @Override
     public void getSelectedDocFromCache(int page) {
-
+        if (mCacheUtil.getAsObject("doc" + page) != null && mCacheUtil.getAsObject("doc" + page).toString().length() != 0) {
+            LogUtils.i("缓存", mCacheUtil.getAsObject("doc" + page).toString());
+            ArrayList<DocBean> docBeanList = (ArrayList<DocBean>) mCacheUtil.getAsObject("doc" + page);
+            iSelectedDocFragment.updateList(docBeanList);
+        }
     }
 }

@@ -1,11 +1,13 @@
 package com.yuanchuangli.mreader.model.bean.doc;
 
+import java.io.Serializable;
+
 /**
  * 文档的实体类
  * Created by Blank on 2016/11/22 17:47
  */
 
-public class DocBean {
+public class DocBean implements Serializable {
     private String updateTime;//更新日期
 
     private String id;//文档id

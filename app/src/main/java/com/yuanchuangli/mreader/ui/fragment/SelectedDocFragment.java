@@ -2,6 +2,7 @@ package com.yuanchuangli.mreader.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,13 +26,12 @@ import java.util.ArrayList;
  */
 public class SelectedDocFragment extends BaseFragment implements ISelectedDocFragment, SwipeRefreshLayout.OnRefreshListener {
     private ProgressBar progressBar;
-    private RecyclerView recyclerView;
+    private RecyclerView swipeTarget;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private LinearLayoutManager linearLayoutManager;
+    private LinearLayoutManager mLinearLayoutManager;
     private boolean loading = false;
-    private DocBean[] docbean = {new DocBean("2014.10.13", "300", "理想主义", "http://swf13.book118.com/litpics//20150409/2129002-55252a01b5a27.jpg", "20")};
-    private DocAdapter adapter;
-    private ArrayList<DocBean> mDocBeenList = new ArrayList<>();
+    private DocAdapter docAdapter;
+    private ArrayList<DocBean> mDocBeanList = new ArrayList<>();
     private SelectedDocPresenter selectedDocPresenter;
     private int currentPage = 1;
     private int psatVisiblesItems, visibleItemCount, totalItemCount;
@@ -47,29 +47,58 @@ public class SelectedDocFragment extends BaseFragment implements ISelectedDocFra
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initDoc();
-        recyclerView = (RecyclerView) view.findViewById(R.id.swipe_target);
-        linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new DocAdapter(mDocBeenList);
-        recyclerView.setAdapter(adapter);
-        selectedDocPresenter.getSelectedDoc(1);
+        initView(view);
+    }
+
+    /**
+     * 初始化精选文档界面
+     */
+    private void initView(View view) {
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeToLoadLayout);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeTarget = (RecyclerView) view.findViewById(R.id.swipe_target);
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
+        progressBar = (ProgressBar) view.findViewById(R.id.id_fragment_progressBar);
+        swipeTarget.setLayoutManager(mLinearLayoutManager);
+        swipeTarget.setHasFixedSize(true);
+        swipeTarget.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) //向下滚动
+                {
+                    visibleItemCount = mLinearLayoutManager.getChildCount();
+                    totalItemCount = mLinearLayoutManager.getItemCount();
+                    psatVisiblesItems = mLinearLayoutManager.findFirstVisibleItemPosition();
+
+                    if (!loading && (visibleItemCount + psatVisiblesItems) >= totalItemCount) {
+                        loading = true;
+                        onLoadMore();
+                    }
+                }
+            }
+        });
+        docAdapter = new DocAdapter(mDocBeanList, getActivity());
+        swipeTarget.setAdapter(docAdapter);
+        selectedDocPresenter.getSelectedDocFromCache(1);
+        onRefresh();
+    }
+
+    /**
+     * 加载更多
+     */
+    public void onLoadMore() {
+        selectedDocPresenter.getSelectedDoc(currentPage);
     }
 
     private void initDoc() {
-        mDocBeenList.clear();
-//        for (int i = 0; i < 50; i++) {
-//            Random random = new Random();
-//            int index = random.nextInt(docbean.length);
-//            mDocBeenList.add(docbean[index]);
-//        }
-  selectedDocPresenter = new SelectedDocPresenter(this,getActivity());
+        selectedDocPresenter = new SelectedDocPresenter(this, getActivity());
     }
 
     @Override
     public void updateList(ArrayList<DocBean> docBeans) {
         currentPage++;
-        mDocBeenList.addAll(docBeans);
-        adapter.notifyDataSetChanged();
+        mDocBeanList.addAll(docBeans);
+        docAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -77,7 +106,7 @@ public class SelectedDocFragment extends BaseFragment implements ISelectedDocFra
      */
     @Override
     public void showProgressDialog() {
-        if (progressBar != null)
+        if (progressBar == null)
             progressBar.setVisibility(View.VISIBLE);
     }
 
@@ -96,7 +125,15 @@ public class SelectedDocFragment extends BaseFragment implements ISelectedDocFra
 
     @Override
     public void showError(String error) {
-
+        if (swipeTarget != null) {
+            selectedDocPresenter.getSelectedDocFromCache(currentPage);
+            Snackbar.make(swipeTarget, "网络通信错误，请您检查网络，您也可以拨打电话" + error, Snackbar.LENGTH_SHORT).setAction("重试", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedDocPresenter.getSelectedDoc(currentPage);
+                }
+            }).show();
+        }
     }
 
     @Override
@@ -106,7 +143,10 @@ public class SelectedDocFragment extends BaseFragment implements ISelectedDocFra
 
     @Override
     public void onRefresh() {
-
+        currentPage = 1;
+        mDocBeanList.clear();
+        docAdapter.notifyDataSetChanged();
+        selectedDocPresenter.getSelectedDoc(currentPage);
     }
 
     @Override

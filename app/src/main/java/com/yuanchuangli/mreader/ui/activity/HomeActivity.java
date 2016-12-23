@@ -162,6 +162,19 @@ public class HomeActivity extends BaseActivity implements IHomeView, BackHandled
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                break;
+            case R.id.action_settings:
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    @Override
     public void setSelectedFragment(BackHandledFragment backHandledFragment) {
         this.selectedFragment = backHandledFragment;
     }

@@ -9,7 +9,7 @@ public class ServerInterface {
     /**
      * 请求的总接口，其他接口以此为基础扩展
      */
-    private final static String ADDRESS = "http://192.168.0.106/mobile/";
+    private final static String ADDRESS = "http://192.168.0.113/mobile/";
     /**
      * 登录请求的总接口
      */
