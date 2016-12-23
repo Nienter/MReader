@@ -94,6 +94,11 @@ public class SelectedDocFragment extends BaseFragment implements ISelectedDocFra
         selectedDocPresenter = new SelectedDocPresenter(this, getActivity());
     }
 
+    /**
+     * 更新列表
+     *
+     * @param docBeans
+     */
     @Override
     public void updateList(ArrayList<DocBean> docBeans) {
         currentPage++;
@@ -127,7 +132,7 @@ public class SelectedDocFragment extends BaseFragment implements ISelectedDocFra
     public void showError(String error) {
         if (swipeTarget != null) {
             selectedDocPresenter.getSelectedDocFromCache(currentPage);
-            Snackbar.make(swipeTarget, "网络通信错误，请您检查网络，您也可以拨打电话" + error, Snackbar.LENGTH_SHORT).setAction("重试", new View.OnClickListener() {
+            Snackbar.make(swipeTarget, "网络通信错误，请您检查网络，错误码" + error, Snackbar.LENGTH_SHORT).setAction("重试", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     selectedDocPresenter.getSelectedDoc(currentPage);
@@ -152,6 +157,5 @@ public class SelectedDocFragment extends BaseFragment implements ISelectedDocFra
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
     }
 }

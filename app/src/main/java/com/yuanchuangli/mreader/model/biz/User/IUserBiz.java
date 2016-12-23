@@ -1,5 +1,6 @@
 package com.yuanchuangli.mreader.model.biz.User;
 
+import com.yuanchuangli.mreader.model.bean.doc.DocBean;
 import com.yuanchuangli.mreader.model.bean.user.User;
 
 /**
@@ -11,6 +12,8 @@ import com.yuanchuangli.mreader.model.bean.user.User;
 public interface IUserBiz {
     void login(User user, IOnloginListener onloginListener);
 
-    //void getBaseInfo();
+
     void getSelectedDoc(User user, IOngetDocListener iOngetDocListener);
+
+    void clickItemDoc(DocBean docBean, IClickListener iClickListener);
 }

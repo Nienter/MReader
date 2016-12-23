@@ -16,29 +16,23 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yuanchuangli.mreader.R;
-import com.yuanchuangli.mreader.api.HttpUtil;
-import com.yuanchuangli.mreader.api.ServerInterface_GET;
 import com.yuanchuangli.mreader.model.bean.doc.DocBean;
-import com.yuanchuangli.mreader.parse.JSONParse_PHP;
+import com.yuanchuangli.mreader.presenter.impl.ClickToPreviewPresenter;
 import com.yuanchuangli.mreader.ui.activity.DocInfoActivity;
+import com.yuanchuangli.mreader.ui.view.IDocAdapterView;
 import com.yuanchuangli.mreader.utils.DateUtils;
-import com.yuanchuangli.mreader.utils.SharedPreferenceUtil;
-import com.yuanchuangli.mreader.utils.init.BaseApplication;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Blank on 2016/12/13 15:51
  */
 
-public class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> {
+public class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> implements IDocAdapterView {
     private Context mContext;
-
+    private ClickToPreviewPresenter clickToPreviewPresenter = new ClickToPreviewPresenter(this);
     private List<DocBean> mDocList;
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cv_doc;
@@ -70,6 +64,11 @@ public class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> {
         }
         View view = LayoutInflater.from(mContext).inflate(R.layout.selecteddoc_item, parent, false);
         return new ViewHolder(view);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mDocList.size();
     }
 
     @Override
@@ -110,29 +109,37 @@ public class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> {
 
     }
 
+    /**
+     * 跳转到下一个界面并携带数据
+     *
+     * @param doc
+     * @param title
+     */
     private void show(DocBean doc, final String title) {
         final String docId = doc.getId();
-        new Thread() {
-            @Override
-            public void run() {
-                Map<String, Object> map = new HashMap<>();
-                map.put("docid", docId);
-                map.put("token", SharedPreferenceUtil.getUser(BaseApplication.getContext()).getString("token", null));
-                try {
-                    URL url = new URL(ServerInterface_GET.REQUREST_PATH_DOC_PROVIEW);
-                    String content = JSONParse_PHP.getDocInfo(HttpUtil.sendGet(url, map));
-                    mContext.startActivity(new Intent(mContext, DocInfoActivity.class).putExtra("url", content).putExtra("title", title));
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                Map<String, Object> map = new HashMap<>();
+//                map.put("docid", docId);
+//                map.put("token", SharedPreferenceUtil.getUser(BaseApplication.getContext()).getString("token", null));
+//                try {
+//                    URL url = new URL(ServerInterface_GET.REQUREST_PATH_DOC_PROVIEW);
+//                    String content = JSONParse_PHP.getDocInfo(HttpUtil.sendGet(url, map));
+//                    mContext.startActivity(new Intent(mContext, DocInfoActivity.class).putExtra("url", content).putExtra("title", title));
+//                } catch (MalformedURLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }.start();
+        clickToPreviewPresenter.ToDocPreview(doc);
     }
 
+    /**
+     * 跳转到界面
+     */
     @Override
-    public int getItemCount() {
-        return mDocList.size();
+    public void ToDocInfoACtivity(DocBean docBean) {
+        mContext.startActivity(new Intent(mContext, DocInfoActivity.class).putExtra("url", docBean.getPreviewPath()).putExtra("title", docBean.getTitle()));
     }
-
-
 }

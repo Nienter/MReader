@@ -1,5 +1,6 @@
 package com.yuanchuangli.mreader.api;
 
+import com.yuanchuangli.mreader.model.bean.doc.DocBean;
 import com.yuanchuangli.mreader.utils.SharedPreferenceUtil;
 import com.yuanchuangli.mreader.utils.init.BaseApplication;
 
@@ -80,5 +81,24 @@ public class ServerInterface_GET {
         }
     }
 
+    /**
+     * 从服务器获取单个文档的链接信息
+     *
+     * @param docBean
+     * @return
+     */
+    public static String getDocInfromServer(DocBean docBean) {
+        final String docId = docBean.getId();
+        try {
+            Map<String, Object> map = new HashMap<>();
+            map.put("docid", docId);
+            map.put("token", SharedPreferenceUtil.getUser(BaseApplication.getContext()).getString("token", null));
+            URL url = new URL(ServerInterface_GET.REQUREST_PATH_DOC_PROVIEW);
+            return HttpUtil.sendGet(url, map);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
 }

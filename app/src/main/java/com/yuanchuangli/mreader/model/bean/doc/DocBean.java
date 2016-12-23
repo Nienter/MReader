@@ -22,17 +22,20 @@ public class DocBean implements Serializable {
 
     private String click;//点击率或下载率
 
+    private String previewPath;//预览路径
+
     public DocBean() {
     }
 
-    ;
 
-    public DocBean(String updateTime, String needCoin, String title, String litpic, String click) {
+    public DocBean(String updateTime, String needCoin, String title, String litpic, String click, String previewPath) {
         this.updateTime = updateTime;
         this.needCoin = needCoin;
         this.title = title;
         this.litpic = litpic;
         this.click = click;
+        this.previewPath = previewPath;
+
     }
 
     public String getUpdateTime() {
@@ -91,9 +94,17 @@ public class DocBean implements Serializable {
         this.click = click;
     }
 
+    public String getPreviewPath() {
+        return previewPath;
+    }
+
+    public void setPreviewPath(String previewPath) {
+        this.previewPath = previewPath;
+    }
+
     @Override
     public String toString() {
-        return "chosendoc{" +
+        return "DocBean{" +
                 "updateTime='" + updateTime + '\'' +
                 ", id='" + id + '\'' +
                 ", needCoin='" + needCoin + '\'' +
@@ -101,6 +112,7 @@ public class DocBean implements Serializable {
                 ", litpic='" + litpic + '\'' +
                 ", pageNumber='" + pageNumber + '\'' +
                 ", click='" + click + '\'' +
+                ", previewPath='" + previewPath + '\'' +
                 '}';
     }
 }

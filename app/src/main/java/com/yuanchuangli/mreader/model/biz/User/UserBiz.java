@@ -79,5 +79,34 @@ public class UserBiz implements IUserBiz {
         }.start();
     }
 
+    /**
+     * 用户点击一份文档
+     *
+     * @param docBean        单个文档
+     * @param iClickListener
+     */
+    @Override
+    public void clickItemDoc(final DocBean docBean, final IClickListener iClickListener) {
+        new Thread() {
+            @Override
+            public void run() {
+                String json = ServerInterface_GET.getDocInfromServer(docBean);
+                int code = JSONParse_PHP.getStatus(json);
+                String docPreviewPath = JSONParse_PHP.getDocInfo(json);
+                docBean.setPreviewPath(docPreviewPath);
+                switch (code) {
+                    case JSONParse_PHP.STATUS_SUCCESS:
+                        iClickListener.Success(docBean);
+                        break;
+                    case JSONParse_PHP.SERVER_CONNECTION_ERROR:
+                        break;
+                    case JSONParse_PHP.STATUS_SIGN_ERROR:
+                        break;
+                }
+
+            }
+        }.start();
+    }
+
 
 }

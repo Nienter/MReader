@@ -190,13 +190,19 @@ public class JSONParse_PHP {
 
     }
 
+    /**
+     * 解析文档的预览链接
+     *
+     * @param JSON
+     * @return
+     */
     public static String getDocInfo(String JSON) {
         LogUtils.i("docinfo", JSON);
         try {
             String info = getInfo(JSON);
             JSONObject jsonObject = new JSONObject(info);
-            String content = jsonObject.getString("url");
-            return content;
+            String docPreviewPath = jsonObject.getString("url");
+            return docPreviewPath;
         } catch (JSONException e) {
             e.printStackTrace();
         }

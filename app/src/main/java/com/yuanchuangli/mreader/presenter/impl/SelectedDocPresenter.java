@@ -32,6 +32,11 @@ public class SelectedDocPresenter implements ISelectedDocPresenter {
         mCacheUtil = CacheUtil.get(context);
     }
 
+    /**
+     * 获取精选文档的逻辑
+     *
+     * @param page
+     */
     @Override
     public void getSelectedDoc(final int page) {
         iSelectedDocFragment.showProgressDialog();
@@ -62,6 +67,11 @@ public class SelectedDocPresenter implements ISelectedDocPresenter {
         });
     }
 
+    /**
+     * 从缓存中拿到数据
+     *
+     * @param page
+     */
     @Override
     public void getSelectedDocFromCache(int page) {
         if (mCacheUtil.getAsObject("doc" + page) != null && mCacheUtil.getAsObject("doc" + page).toString().length() != 0) {
