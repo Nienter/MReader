@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,9 @@ import com.yuanchuangli.mreader.presenter.impl.ClickToPreviewPresenter;
 import com.yuanchuangli.mreader.ui.activity.DocInfoActivity;
 import com.yuanchuangli.mreader.ui.view.IDocAdapterView;
 import com.yuanchuangli.mreader.utils.DateUtils;
+import com.yuanchuangli.mreader.utils.LogUtils;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
@@ -78,7 +82,12 @@ public class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> impl
         holder.doc_click.setText(doc.getClick() + "次下载");
         holder.doc_needCoin.setText(doc.getNeedCoin());
         holder.doc_updateTime.setText(DateUtils.timeStamp2Date(doc.getUpdateTime(), "yyyy.MM.dd"));
-        Glide.with(mContext).load(doc.getLitpic()).into(holder.doc_Image);
+        if (TextUtils.isEmpty(doc.getLitpic()) || !doc.getLitpic().contains("http")) {
+            LogUtils.i("无图", "真的" + TextUtils.isEmpty(doc.getLitpic()));
+            Glide.with(mContext).load(R.drawable.ic_nolitpic).into(holder.doc_Image);
+        } else {
+            Glide.with(mContext).load(doc.getLitpic()).into(holder.doc_Image);
+        }
         holder.cv_doc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +105,10 @@ public class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> impl
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.pop_fav:
+                                if (DataSupport.findBySQL("select * from DocBean where docId = ?", doc.getdocId()).getCount() == 0) {
+                                    doc.save();
+                                    LogUtils.i("SAVE", "已存储");
+                                }
                                 break;
                             case R.id.pop_download:
                                 break;
@@ -116,22 +129,8 @@ public class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> impl
      * @param title
      */
     private void show(DocBean doc, final String title) {
-        final String docId = doc.getId();
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                Map<String, Object> map = new HashMap<>();
-//                map.put("docid", docId);
-//                map.put("token", SharedPreferenceUtil.getUser(BaseApplication.getContext()).getString("token", null));
-//                try {
-//                    URL url = new URL(ServerInterface_GET.REQUREST_PATH_DOC_PROVIEW);
-//                    String content = JSONParse_PHP.getDocInfo(HttpUtil.sendGet(url, map));
-//                    mContext.startActivity(new Intent(mContext, DocInfoActivity.class).putExtra("url", content).putExtra("title", title));
-//                } catch (MalformedURLException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }.start();
+        final String docId = doc.getdocId();
+
         clickToPreviewPresenter.ToDocPreview(doc);
     }
 

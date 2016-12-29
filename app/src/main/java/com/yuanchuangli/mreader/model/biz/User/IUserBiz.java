@@ -13,7 +13,7 @@ public interface IUserBiz {
     void login(User user, IOnloginListener onloginListener);
 
 
-    void getSelectedDoc(User user, IOngetDocListener iOngetDocListener);
+    void getSelectedDoc(User user, int page, IOngetDocListener iOngetDocListener);
 
     void clickItemDoc(DocBean docBean, IClickListener iClickListener);
 }

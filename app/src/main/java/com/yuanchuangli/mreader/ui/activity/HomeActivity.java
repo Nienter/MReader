@@ -6,7 +6,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -76,7 +75,7 @@ public class HomeActivity extends BaseActivity implements IHomeView, BackHandled
     }
 
     private void switchToMyDoc() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new RechargeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new MyDocFragment()).commit();
         mToolbar.setTitle(R.string.navigation_mydoc);
     }
 
@@ -87,10 +86,13 @@ public class HomeActivity extends BaseActivity implements IHomeView, BackHandled
 
 
     private void switchToRecharge() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new MyDocFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new RechargeFragment()).commit();
         mToolbar.setTitle(R.string.navigation_recharge_title);
     }
-
+     private void switchToSettting(){
+         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new RechargeFragment()).commit();
+         mToolbar.setTitle(R.string.navigation_recharge_title);
+     }
     /**
      * 设置用户的信息栏，在非第一次登录时，会发生崩溃，原因没有user对象
      * 解决方案：重新设计接口
@@ -153,26 +155,25 @@ public class HomeActivity extends BaseActivity implements IHomeView, BackHandled
                     }
                 });
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                break;
-            case R.id.action_settings:
-                break;
-
-        }
-        return super.onOptionsItemSelected(item);
-
-    }
+    //@Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.action_search:
+//                break;
+//            case R.id.action_settings:
+//                break;
+//
+//        }
+//        return super.onOptionsItemSelected(item);
+//
+//    }
 
     @Override
     public void setSelectedFragment(BackHandledFragment backHandledFragment) {

@@ -18,6 +18,7 @@ import android.webkit.WebView;
 import android.widget.ProgressBar;
 
 import com.yuanchuangli.mreader.R;
+import com.yuanchuangli.mreader.utils.NetUtils;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -87,7 +88,12 @@ public class DocInfoActivity extends BaseActivity implements View.OnClickListene
 
     private void setWebView() {
         WebSettings webSettings = wvDoc.getSettings();
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        //webview的缓存策略
+        if (!NetUtils.isNetworkConnected(this)) {
+            webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        } else {
+            webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        }
         webSettings.setTextZoom(110);
         String ua = webSettings.getUserAgentString();
         webSettings.setUserAgentString(ua.replace("Android", "YCL_USER Android"));

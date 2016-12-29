@@ -1,5 +1,7 @@
 package com.yuanchuangli.mreader.model.bean.doc;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.Serializable;
 
 /**
@@ -7,10 +9,10 @@ import java.io.Serializable;
  * Created by Blank on 2016/11/22 17:47
  */
 
-public class DocBean implements Serializable {
+public class DocBean extends DataSupport implements Serializable {
     private String updateTime;//更新日期
 
-    private String id;//文档id
+    private String docId;//文档id
 
     private String needCoin;//需要金币
 
@@ -54,12 +56,12 @@ public class DocBean implements Serializable {
         this.needCoin = needMoney;
     }
 
-    public String getId() {
-        return id;
+    public String getdocId() {
+        return docId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setdocId(String docId) {
+        this.docId = docId;
     }
 
     public String getTitle() {
@@ -106,7 +108,7 @@ public class DocBean implements Serializable {
     public String toString() {
         return "DocBean{" +
                 "updateTime='" + updateTime + '\'' +
-                ", id='" + id + '\'' +
+                ", docId='" + docId + '\'' +
                 ", needCoin='" + needCoin + '\'' +
                 ", title='" + title + '\'' +
                 ", litpic='" + litpic + '\'' +

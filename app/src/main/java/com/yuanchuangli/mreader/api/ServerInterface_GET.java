@@ -67,12 +67,13 @@ public class ServerInterface_GET {
     /**
      * 从服务器获取文档列表
      *
-     * @return josn串
+     * @return json串
      */
-    public static String getDocListFromServer() {
+    public static String getDocListFromServer(int page) {
         try {
             URL url = new URL(REQUEST_PATH_DOC_CHOOSEN);
             Map<String, Object> map = new HashMap<>();
+            map.put("page", page);
             map.put("token", SharedPreferenceUtil.getUser(BaseApplication.getContext()).getString("token", null));
             return HttpUtil.sendGet(url, map);
         } catch (MalformedURLException e) {
@@ -88,7 +89,7 @@ public class ServerInterface_GET {
      * @return
      */
     public static String getDocInfromServer(DocBean docBean) {
-        final String docId = docBean.getId();
+        final String docId = docBean.getdocId();
         try {
             Map<String, Object> map = new HashMap<>();
             map.put("docid", docId);

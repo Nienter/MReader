@@ -30,7 +30,13 @@
         <activity android:name=".ui.activity.LoginActivity" />
         <activity
             android:name=".ui.activity.HomeActivity"
-            android:theme="@style/DrawerLayoutTheme" />
+            android:theme="@style/DrawerLayoutTheme" >
+            <!--<meta-data android:name="android.app.searchable"-->
+                <!--android:resource="@xml/searchable" />-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.SEARCH" />-->
+            <!--</intent-filter>-->
+            </activity>
         <!-- QQ登录 -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"

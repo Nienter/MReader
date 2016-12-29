@@ -52,7 +52,7 @@ public class HttpUtil {
             //conn.setConnectTimeout(5000);
             conn.setRequestMethod("GET");
             int code = conn.getResponseCode();
-            LogUtils.i("url", "code=" + code);
+            LogUtils.i("code", "code=" + code);
             if (code == 200) {
                 InputStream in = conn.getInputStream();
                 reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
@@ -62,6 +62,7 @@ public class HttpUtil {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         } finally {
             try {
                 if (reader != null)

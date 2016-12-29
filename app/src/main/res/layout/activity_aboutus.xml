@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关于我们" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:src="@drawable/doc_logo"
+        android:layout_gravity="center|top"
+        />
+
+    <com.yuanchuangli.mreader.ui.myview.BorderTextView
+        android:id="@+id/borderTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_margin="40dp"
+        android:padding="10dp"
+        android:text="\t\t文档投稿赚钱网,始创于2006年，是致力于打造全民文档共享，有偿下载的C2C文档交易平台，目前主要涉及包括：文学小说、可行性研究报告、毕业论文、管理资料，调查报告，考试资料，经典试卷等几十个种类，目前上传累计达到三百万个，会员总数达到50多万个，有效上传原创资料认证用户达到300余，原滋原味的原创资料达到5000余个。\n\t\t文档投稿赚钱网秉承着诚信公平的理念为广大用户提供文档上传和下载服务，并竭尽全力保障用户和公司的权益。" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#CDC5BF"
+        android:layout_gravity="center|bottom"
+        android:text="\tCopyright@2006-2016\n成都原创力网络科技有限公司" />
+
+
+</android.support.design.widget.CoordinatorLayout>

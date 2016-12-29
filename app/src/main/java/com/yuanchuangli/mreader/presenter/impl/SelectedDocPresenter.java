@@ -40,7 +40,7 @@ public class SelectedDocPresenter implements ISelectedDocPresenter {
     @Override
     public void getSelectedDoc(final int page) {
         iSelectedDocFragment.showProgressDialog();
-        userBiz.getSelectedDoc(new User(), new IOngetDocListener() {
+        userBiz.getSelectedDoc(new User(),page, new IOngetDocListener() {
             @Override
             public void getDocSuccess(User user, final ArrayList<DocBean> docList) {
                 mHandler.post(new Runnable() {

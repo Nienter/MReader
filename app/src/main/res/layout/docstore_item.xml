@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/docstore_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_vector_pdf_48dp" />
+
+        <TextView
+            android:id="@+id/docstore_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/docstore_image"
+            android:text="中国近现代史" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="160dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/holo_red_light"
+            android:gravity="center"
+            android:text="删除"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/tv_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/holo_blue_light"
+            android:gravity="center"
+            android:text="购买"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+    <!--<LinearLayout-->
+    <!--android:layout_width="80dp"-->
+    <!--android:layout_height="match_parent">-->
+    <!--<TextView-->
+    <!--android:id="@+id/tv_buy"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@android:color/holo_blue_light"-->
+    <!--android:gravity="center"-->
+    <!--android:text="购买"-->
+    <!--android:textColor="@android:color/white" />-->
+    <!--</LinearLayout>-->
+</LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -59,7 +60,7 @@ public class SelectedDocFragment extends BaseFragment implements ISelectedDocFra
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_common, null);
+        View view = inflater.inflate(R.layout.fragment_common, container, false);
         setHasOptionsMenu(true);//显示menu必须加
         return view;
     }
@@ -101,7 +102,7 @@ public class SelectedDocFragment extends BaseFragment implements ISelectedDocFra
         docAdapter = new DocAdapter(mDocBeanList, getActivity());
         swipeTarget.setAdapter(docAdapter);
         selectedDocPresenter.getSelectedDocFromCache(1);
-        onRefresh();
+        //onRefresh();
     }
 
     /**
@@ -184,7 +185,21 @@ public class SelectedDocFragment extends BaseFragment implements ISelectedDocFra
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        final SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                selectedDocPresenter.getSelectedDocFromCache(1);
+                return true;
+            }
+        });
+
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -229,18 +244,18 @@ public class SelectedDocFragment extends BaseFragment implements ISelectedDocFra
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                LogUtils.i("return", "到了de2");
-                break;
-            case R.id.action_settings:
-                LogUtils.i("return", "到了de");
-                break;
-            case android.R.id.home:
-                selectedDocPresenter.getSelectedDocFromCache(1);
-                LogUtils.i("return", "到了");
-                break;
-        }
+//        switch (item.getItemId()) {
+//            case R.id.action_search:
+//                LogUtils.i("return", "到了de2");
+//                break;
+//            case R.id.action_settings:
+//                LogUtils.i("return", "到了de");
+//                break;
+//            case android.R.id.home:
+//                selectedDocPresenter.getSelectedDocFromCache(1);
+//                LogUtils.i("return", "到了");
+//                break;
+//        }
 
         return super.onOptionsItemSelected(item);
 

@@ -10,6 +10,9 @@ import com.yuanchuangli.mreader.utils.Constants;
 import com.yuanchuangli.mreader.utils.LogUtils;
 import com.yuanchuangli.mreader.utils.SharedPreferenceUtil;
 
+import org.litepal.LitePalApplication;
+import org.litepal.tablemanager.Connector;
+
 /**
  * 捕获应用异常Application 在这里完成整个应用退出；在这里进行全局变量的传递；在这里完成低内存的释放；在这里捕获未抓住的异常；用于应用配置,
  * 预加载处理
@@ -26,6 +29,8 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
+        LitePalApplication.initialize(mContext);
+        Connector.getDatabase();
         SharedPreferenceUtil.SharedPreferencesInit(mContext);
         LogUtils.i("SHARE", "到了Appcalition");
         // 异常处理

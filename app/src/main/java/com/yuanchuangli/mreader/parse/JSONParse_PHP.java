@@ -62,7 +62,7 @@ public class JSONParse_PHP {
 
             JSONObject jsonObject = new JSONObject(JSON);
             return jsonObject.getInt("code");
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             if (TextUtils.isEmpty(JSON)) {
                 return SERVER_CONNECTION_ERROR;
@@ -81,7 +81,7 @@ public class JSONParse_PHP {
         try {
             JSONObject jsonObject = new JSONObject(JSON);
             return jsonObject.getString("result");
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
@@ -95,7 +95,7 @@ public class JSONParse_PHP {
      */
     public static int getServerTime(String JSON) {
         try {
-            LogUtils.i("JSON_TIME", JSON);
+            //LogUtils.i("JSON_TIME", JSON);
             String a = getInfo(JSON);
             JSONObject jsonObject = new JSONObject(a);
             LogUtils.i("time", "时间是" + jsonObject.getInt("time"));
@@ -173,7 +173,7 @@ public class JSONParse_PHP {
                 DocBean doc = new DocBean();
                 JSONObject object = (JSONObject) jsonArray.get(i);
                 LogUtils.i("TAGQ", object.toString());
-                doc.setId(object.getString("id"));
+                doc.setdocId(object.getString("id"));
                 doc.setClick(object.getString("click"));
                 doc.setLitpic(object.getString("litpic"));
                 doc.setNeedCoin(object.getString("needmoney"));
@@ -197,13 +197,13 @@ public class JSONParse_PHP {
      * @return
      */
     public static String getDocInfo(String JSON) {
-        LogUtils.i("docinfo", JSON);
+//        LogUtils.i("docinfo", JSON);
         try {
             String info = getInfo(JSON);
             JSONObject jsonObject = new JSONObject(info);
             String docPreviewPath = jsonObject.getString("url");
             return docPreviewPath;
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "";

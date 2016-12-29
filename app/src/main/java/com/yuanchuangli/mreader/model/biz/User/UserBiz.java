@@ -5,6 +5,7 @@ import com.yuanchuangli.mreader.api.ServerInterface_POST;
 import com.yuanchuangli.mreader.model.bean.doc.DocBean;
 import com.yuanchuangli.mreader.model.bean.user.User;
 import com.yuanchuangli.mreader.parse.JSONParse_PHP;
+import com.yuanchuangli.mreader.utils.NetUtils;
 import com.yuanchuangli.mreader.utils.SharedPreferenceUtil;
 import com.yuanchuangli.mreader.utils.init.BaseApplication;
 
@@ -54,11 +55,11 @@ public class UserBiz implements IUserBiz {
      * @param iOngetDocListener
      */
     @Override
-    public void getSelectedDoc(final User user, final IOngetDocListener iOngetDocListener) {
+    public void getSelectedDoc(final User user, final int page, final IOngetDocListener iOngetDocListener) {
         new Thread() {
             @Override
             public void run() {
-                String json = ServerInterface_GET.getDocListFromServer();
+                String json = ServerInterface_GET.getDocListFromServer(page);
                 int code = JSONParse_PHP.getStatus(json);
                 ArrayList<DocBean> docList = JSONParse_PHP.getDocList(json);
                 switch (code) {
@@ -90,10 +91,14 @@ public class UserBiz implements IUserBiz {
         new Thread() {
             @Override
             public void run() {
+                int code;
+                if(NetUtils.isNetworkConnected(BaseApplication.getContext())){
                 String json = ServerInterface_GET.getDocInfromServer(docBean);
-                int code = JSONParse_PHP.getStatus(json);
+                code = JSONParse_PHP.getStatus(json);
                 String docPreviewPath = JSONParse_PHP.getDocInfo(json);
-                docBean.setPreviewPath(docPreviewPath);
+                docBean.setPreviewPath(docPreviewPath);}
+                else{
+                     code = JSONParse_PHP.STATUS_SUCCESS;}
                 switch (code) {
                     case JSONParse_PHP.STATUS_SUCCESS:
                         iClickListener.Success(docBean);
