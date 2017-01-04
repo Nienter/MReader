@@ -35,7 +35,6 @@ public class ServerInterface_POST {
         LogUtils.i("PARAMS", params);
         try {
             URL url = new URL(REQUEST_PATH_lOGIN);
-
             return HttpUtil.sendPost(url, params);
         } catch (MalformedURLException e) {
             e.printStackTrace();

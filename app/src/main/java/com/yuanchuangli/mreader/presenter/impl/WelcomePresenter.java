@@ -8,7 +8,9 @@ import com.yuanchuangli.mreader.model.biz.Welcome.WelcomeBiz;
 import com.yuanchuangli.mreader.ui.view.IWelcomeView;
 
 /**
- * Created by Blank on 2016/12/9 10:25
+ * @author Blank
+ * @description WelcomePresenter
+ * @time 2017/1/4 16:12
  */
 
 public class WelcomePresenter {

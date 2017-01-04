@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yuanchuangli.mreader.R;
+import com.yuanchuangli.mreader.ui.fragment.mydoc.DocRecords;
+import com.yuanchuangli.mreader.ui.fragment.mydoc.DownloadRecords;
 import com.yuanchuangli.mreader.ui.fragment.mydoc.LastBrowse;
 import com.yuanchuangli.mreader.ui.myview.OnSegmentClickListener;
 import com.yuanchuangli.mreader.ui.myview.SegmentView;
@@ -21,6 +23,8 @@ import com.yuanchuangli.mreader.ui.myview.SegmentView;
  */
 public class MyDocFragment extends Fragment {
     private LastBrowse lastBrowse;
+    private DownloadRecords downloadRecords;
+    private DocRecords docRecords;
     private SegmentView segmentView;
     private FragmentManager fragmentManager;
 
@@ -45,31 +49,35 @@ public class MyDocFragment extends Fragment {
         hideFragment(trans);
         switch (position) {
             case 0:
-                if (lastBrowse == null) {
-                    lastBrowse = new LastBrowse();
-                    trans.add(R.id.contentsegment, new LastBrowse());
-                } else {
-                    trans.show(lastBrowse);
-                }
-                trans.commit();
+//                if (lastBrowse == null) {
+//                    lastBrowse = new LastBrowse();
+//                    trans.replace(R.id.contentsegment, new LastBrowse());
+//                } else {
+//                    trans.show(lastBrowse);
+//                }
+//                trans.commit();
+                trans.replace(R.id.contentsegment, new LastBrowse()).commit();
                 break;
             case 1:
-                if (lastBrowse == null) {
-                    lastBrowse = new LastBrowse();
-                    trans.add(R.id.contentsegment, new LastBrowse());
-                } else {
-                    trans.show(lastBrowse);
-                }
-                trans.commit();
+//                if (downloadRecords == null) {
+//                    downloadRecords = new DownloadRecords();
+//                    //trans.add(R.id.contentsegment, new DownloadRecords());
+//                    trans.replace(R.id.contentsegment, new DownloadRecords());
+//                } else {
+//                    trans.show(downloadRecords);
+//                }
+//                trans.commit();
+                trans.replace(R.id.contentsegment, new DownloadRecords()).commit();
                 break;
             case 2:
-                if (lastBrowse == null) {
-                    lastBrowse = new LastBrowse();
-                    trans.add(R.id.contentsegment, new LastBrowse());
-                } else {
-                    trans.show(lastBrowse);
-                }
-                trans.commit();
+//                if (docRecords == null) {
+//                    docRecords = new DocRecords();
+//                    trans.replace(R.id.contentsegment, new DocRecords());
+//                } else {
+//                    trans.show(docRecords);
+//                }
+//                trans.commit();
+                trans.replace(R.id.contentsegment, new DocRecords()).commit();
                 break;
         }
     }

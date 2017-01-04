@@ -18,4 +18,5 @@ public class ChosenDoc {
     public void setDocList(List<DocBean> docList) {
         this.docList = docList;
     }
+
 }

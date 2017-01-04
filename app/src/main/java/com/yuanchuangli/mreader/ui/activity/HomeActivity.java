@@ -1,5 +1,6 @@
 package com.yuanchuangli.mreader.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -89,10 +90,11 @@ public class HomeActivity extends BaseActivity implements IHomeView, BackHandled
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new RechargeFragment()).commit();
         mToolbar.setTitle(R.string.navigation_recharge_title);
     }
-     private void switchToSettting(){
-         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new RechargeFragment()).commit();
-         mToolbar.setTitle(R.string.navigation_recharge_title);
-     }
+
+    private void switchToSettting() {
+        startActivity(new Intent(this, SettingActivity.class));
+    }
+
     /**
      * 设置用户的信息栏，在非第一次登录时，会发生崩溃，原因没有user对象
      * 解决方案：重新设计接口
@@ -135,21 +137,26 @@ public class HomeActivity extends BaseActivity implements IHomeView, BackHandled
 
                             case R.id.navigation_item_selecteddoc:
                                 switchToSelectedDoc();
+                                menuItem.setChecked(true);
                                 break;
                             case R.id.navigation_item_mydoc:
                                 switchToMyDoc();
+                                menuItem.setChecked(true);
                                 break;
                             case R.id.navigation_item_mymessage:
                                 switchToMyMessage();
+                                menuItem.setChecked(true);
                                 break;
                             case R.id.navigation_item_recharge:
                                 switchToRecharge();
+                                menuItem.setChecked(true);
                                 break;
                             case R.id.navigation_item_setting:
-                                switchToRecharge();
+                                menuItem.setCheckable(false);
+                                switchToSettting();
                                 break;
                         }
-                        menuItem.setChecked(true);
+                        //menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
                         return true;
                     }
@@ -240,7 +247,7 @@ public class HomeActivity extends BaseActivity implements IHomeView, BackHandled
     }
 
     /**
-     * 显示更新，暂时未写
+     * 显示更新版本的对话框，暂时未写
      *
      * @param updateItem
      */

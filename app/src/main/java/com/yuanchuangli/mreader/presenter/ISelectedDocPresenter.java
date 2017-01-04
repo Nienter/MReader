@@ -1,7 +1,9 @@
 package com.yuanchuangli.mreader.presenter;
 
 /**
- * Created by Blank on 2016/12/16 15:51
+ * @author Blank
+ * @description ISelectedDocPresenter
+ * @time 2017/1/4 16:13
  */
 
 public interface ISelectedDocPresenter {

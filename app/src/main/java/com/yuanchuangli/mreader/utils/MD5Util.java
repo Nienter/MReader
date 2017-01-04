@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
  * md5 加密工具类
  * Created by Blank on 2016/11/22 11:28
  */
-public class MD5Util {
+class MD5Util {
     private static final String encryModel = "MD5";
 
     /**

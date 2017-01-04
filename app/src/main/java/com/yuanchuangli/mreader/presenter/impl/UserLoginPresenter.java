@@ -112,6 +112,7 @@ public class UserLoginPresenter {
 
                     @Override
                     public void onCancel() {
+
                     }
                 }
 

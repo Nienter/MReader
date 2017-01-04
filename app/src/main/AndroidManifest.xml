@@ -30,13 +30,14 @@
         <activity android:name=".ui.activity.LoginActivity" />
         <activity
             android:name=".ui.activity.HomeActivity"
-            android:theme="@style/DrawerLayoutTheme" >
-            <!--<meta-data android:name="android.app.searchable"-->
-                <!--android:resource="@xml/searchable" />-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.SEARCH" />-->
-            <!--</intent-filter>-->
-            </activity>
+            android:theme="@style/DrawerLayoutTheme">
+
+            <!-- <meta-data android:name="android.app.searchable" -->
+            <!-- android:resource="@xml/searchable" /> -->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.SEARCH" /> -->
+            <!-- </intent-filter> -->
+        </activity>
         <!-- QQ登录 -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -74,9 +75,9 @@
             android:configChanges="orientation|keyboardHidden"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-
-        </activity>
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".ui.activity.RechargeRecordsActivity"></activity>
+        <activity android:name=".ui.activity.SettingActivity" />
     </application>
 
 </manifest>

@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * @author Blank
- * @description DocStoreAdapter收藏文档的适配器
+ * @description DocStoreAdapter文档收藏的适配器
  * @time 2016/12/28 19:14
  */
 

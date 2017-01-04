@@ -8,7 +8,9 @@ import android.os.Build;
 import android.provider.Settings;
 
 /**
- * Created by Blank on 2016/12/12 10:34
+ * @author Blank
+ * @description NetUtils
+ * @time 2017/1/4 16:31
  */
 
 public class NetUtils {

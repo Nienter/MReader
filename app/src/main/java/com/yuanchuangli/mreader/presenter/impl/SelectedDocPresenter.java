@@ -15,9 +15,10 @@ import com.yuanchuangli.mreader.utils.LogUtils;
 import java.util.ArrayList;
 
 /**
- * Created by Blank on 2016/12/16 15:53
+ * @author Blank
+ * @description SelectedDocPresenter
+ * @time 2017/1/4 16:10
  */
-
 public class SelectedDocPresenter implements ISelectedDocPresenter {
     private UserBiz userBiz;
     private ISelectedDocFragment iSelectedDocFragment;
@@ -35,12 +36,12 @@ public class SelectedDocPresenter implements ISelectedDocPresenter {
     /**
      * 获取精选文档的逻辑
      *
-     * @param page
+     * @param page 页码
      */
     @Override
     public void getSelectedDoc(final int page) {
         iSelectedDocFragment.showProgressDialog();
-        userBiz.getSelectedDoc(new User(),page, new IOngetDocListener() {
+        userBiz.getSelectedDoc(new User(), page, new IOngetDocListener() {
             @Override
             public void getDocSuccess(User user, final ArrayList<DocBean> docList) {
                 mHandler.post(new Runnable() {
@@ -70,7 +71,7 @@ public class SelectedDocPresenter implements ISelectedDocPresenter {
     /**
      * 从缓存中拿到数据
      *
-     * @param page
+     * @param page 页码
      */
     @Override
     public void getSelectedDocFromCache(int page) {

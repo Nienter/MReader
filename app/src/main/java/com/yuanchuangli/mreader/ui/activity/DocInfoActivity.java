@@ -22,6 +22,11 @@ import com.yuanchuangli.mreader.utils.NetUtils;
 
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * @author Blank
+ * @description DocInfoActivity 文档预览的activity
+ * @time 2017/1/4 16:15
+ */
 public class DocInfoActivity extends BaseActivity implements View.OnClickListener {
     private WebView wvDoc;
     private Toolbar mToolbar;
@@ -128,8 +133,6 @@ public class DocInfoActivity extends BaseActivity implements View.OnClickListene
     }
 
 
-    private void setToolBar() {
-    }
 
     private void findView() {
         wvDoc = (WebView) findViewById(R.id.wv_doc);

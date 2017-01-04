@@ -17,8 +17,6 @@ import com.yuanchuangli.mreader.utils.init.BaseApplication;
  */
 
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
-    private Bundle bundle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

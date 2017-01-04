@@ -17,10 +17,12 @@ import org.json.JSONObject;
  */
 
 public class JSONParse_QQ {
-    private static Tencent mTencent = BaseApplication.getTecent();
-    private static Context mContext = BaseApplication.getContext();
+    private static Tencent mTencent;
+    private static Context mContext;
 
     public static UserInfo getQQLoginInfo(Object json) {
+        mTencent = BaseApplication.getTecent();
+        mContext = BaseApplication.getContext();
         try {
             JSONObject jo = (JSONObject) json;
             int ret = jo.getInt("ret");
@@ -32,7 +34,6 @@ public class JSONParse_QQ {
                 LogUtils.i("QQ登录成功", "QQ登录成功");
                 mTencent.setOpenId(openID);
                 mTencent.setAccessToken(accessToken, expires);
-
             }
         } catch (JSONException e) {
             e.printStackTrace();

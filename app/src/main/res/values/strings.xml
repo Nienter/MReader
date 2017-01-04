@@ -3,7 +3,7 @@
 
 
     <!--登录界面-->
-    <string name="activity_login_str_login">登   录</string>
+    <string name="activity_login_str_login">登&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;录</string>
     <string name="activity_login_logo_title">文档共享</string>
     <string name="activity_login_username">用户名</string>
     <string name="activity_login_password">密码</string>
@@ -32,4 +32,20 @@
     <string name="open_with_browser">用浏览器打开</string>
     <string name="share">分享到</string>
     <string name="share_tail">\\t\\n 分享自文赚，分享文档，享受赚钱</string>
+
+    <!--设置界面-->
+    <string name="pre_refresh_data" translatable="false">refresh_data</string>
+    <string name="pre_get_image" translatable="false">get_image</string>
+    <string name="pre_status_bar" translatable="false">pre_status_bar</string>
+    <string name="pre_nav_color" translatable="false">pre_nav_color</string>
+    <string name="pre_cache_size" translatable="false">CacheSize</string>
+    <string name="pre_author" translatable="false">author</string>
+    <string name="pre_feedback" translatable="false">feedback</string>
+    <string name="pre_version" translatable="false">version</string>
+    <string name="cache_size">缓存大小</string>
+    <string name="update_title">有更新可用</string>
+    <string name="update_description">新版%1$s版本可用\\n更新内容\\n%2$s</string>
+    <string name="update_button">现在升级</string>
+    <string name="common_cancel">取消</string>
+    <string name="update_no_update">没有更新可用</string>
 </resources>

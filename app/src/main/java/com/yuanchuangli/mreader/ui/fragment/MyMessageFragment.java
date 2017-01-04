@@ -10,7 +10,9 @@ import com.yuanchuangli.mreader.R;
 import com.yuanchuangli.mreader.utils.BackHandledFragment;
 
 /**
- * Created by Chenyc on 15/6/27.
+ * @author Blank
+ * @description MyMessageFragment 我的消息的Fragment
+ * @time 2017/1/4 16:26
  */
 public class MyMessageFragment extends BackHandledFragment {
 

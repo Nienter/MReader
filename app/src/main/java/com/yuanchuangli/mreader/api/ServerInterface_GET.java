@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 此类主要是使用GET方式请求的接口地址和方法
- * <p>
- * Created by Blank on 2016/11/21 11:25
+ * @author Blank
+ * @description ServerInterface_GET 处理get请求的接口
+ * @time 2017/1/4 15:43
  */
 
 public class ServerInterface_GET {
@@ -35,7 +35,7 @@ public class ServerInterface_GET {
     /**
      * REQUEST_PATH_USER_RECORD_DOWNLOAD 用户查询下载记录的接口
      */
-    public final static String REQUEST_PATH_USER_RECORD_DOWNLOAD = ServerInterface.DOC_BASE_ADDRESS + "downloadRecord";
+    public final static String REQUEST_PATH_USER_RECORD_DOWNLOAD = ServerInterface.DOC_BASE_ADDRESS + "downloadRecord";//展示未用
     /**
      * REQUREST_PATH_DOC_PROVIEW 文档预览的接口
      */
@@ -51,7 +51,7 @@ public class ServerInterface_GET {
     /**
      * 从服务器获取时间
      *
-     * @return
+     * @return 服务器的时间
      */
     public static String getTimeFromServer() {
         try {
@@ -67,7 +67,7 @@ public class ServerInterface_GET {
     /**
      * 从服务器获取文档列表
      *
-     * @return json串
+     * @return 文档列表的json
      */
     public static String getDocListFromServer(int page) {
         try {
@@ -86,7 +86,7 @@ public class ServerInterface_GET {
      * 从服务器获取单个文档的链接信息
      *
      * @param docBean
-     * @return
+     * @return 文档的信息
      */
     public static String getDocInfromServer(DocBean docBean) {
         final String docId = docBean.getdocId();
@@ -102,4 +102,20 @@ public class ServerInterface_GET {
         return "";
     }
 
+    /**
+     * 从服务器充值记录信息
+     *
+     * @return 充值记录信息
+     */
+    public static String getRechargeRecordsFromServer() {
+        try {
+            URL url = new URL(ServerInterface_GET.REQUEST_PATH_USER_RECORD_RECHARGE);
+            Map<String, Object> map = new HashMap<>();
+            map.put("token", SharedPreferenceUtil.getUser(BaseApplication.getContext()).getString("token", null));
+            return HttpUtil.sendGet(url, map);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

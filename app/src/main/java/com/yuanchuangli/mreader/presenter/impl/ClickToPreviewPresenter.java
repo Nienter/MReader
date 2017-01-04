@@ -31,7 +31,6 @@ public class ClickToPreviewPresenter {
                         iDocAdapterView.ToDocInfoACtivity(docBean);
                     }
                 });
-
             }
 
             @Override

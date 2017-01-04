@@ -1,15 +1,17 @@
 package com.yuanchuangli.mreader.model.bean;
 
 /**
- * Created by Blank on 2016/12/15 14:55
+ * @author Blank
+ * @description UpdateItem  更新的bean类
+ * @time 2016/12/30 14:08
  */
 
 public class UpdateItem {
 
-    private int versionCode;
-    private String versionName;
-    private String downloadUrl;
-    private String releaseNote;
+    private int versionCode;//版本号
+    private String versionName;//版本名
+    private String downloadUrl;//更新地址
+    private String releaseNote;//更新日志
 
     public int getVersionCode() {
         return versionCode;

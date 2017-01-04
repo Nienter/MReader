@@ -2,6 +2,7 @@ package com.yuanchuangli.mreader.parse;
 
 import android.text.TextUtils;
 
+import com.yuanchuangli.mreader.model.bean.Recharge;
 import com.yuanchuangli.mreader.model.bean.doc.DocBean;
 import com.yuanchuangli.mreader.model.bean.user.User;
 import com.yuanchuangli.mreader.utils.LogUtils;
@@ -207,5 +208,35 @@ public class JSONParse_PHP {
             e.printStackTrace();
         }
         return "";
+    }
+
+    /**
+     * 解析充值记录列表
+     *
+     * @param JSON
+     * @return 返回充值列表
+     */
+    public static ArrayList<Recharge> getRechargeRecords(String JSON) {
+        ArrayList<Recharge> rechargeRecordsList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(JSON);
+            JSONArray jsonArray = jsonObject.getJSONArray("result");
+            LogUtils.i("TAG", jsonArray.toString());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Recharge recharge = new Recharge();
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                LogUtils.i("RECHARGEJSON", jsonObject1.toString());
+                recharge.setBuyId(jsonObject1.getString("buyid"));
+                recharge.setRechargeMoney(jsonObject1.getString("money"));
+                recharge.setRechargeProduct(jsonObject1.getString("product"));
+                recharge.setRechargeTime(jsonObject1.getString("mtime"));
+                recharge.setRechargeSta(jsonObject1.getInt("sta"));
+                rechargeRecordsList.add(recharge);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return rechargeRecordsList;
     }
 }

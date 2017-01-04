@@ -14,11 +14,10 @@ import org.litepal.LitePalApplication;
 import org.litepal.tablemanager.Connector;
 
 /**
- * 捕获应用异常Application 在这里完成整个应用退出；在这里进行全局变量的传递；在这里完成低内存的释放；在这里捕获未抓住的异常；用于应用配置,
- * 预加载处理
- *
- * @author Blank
- */
+*@description BaseApplication 捕获应用异常Application 在这里完成整个应用退出；在这里进行全局变量的传递；在这里完成低内存的释放；在这里捕获未抓住的异常；用于应用配置,预加载处理
+*@author Blank
+*@time   2017/1/4 16:30
+*/
 
 public class BaseApplication extends Application {
     private static Context mContext;

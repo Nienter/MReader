@@ -131,7 +131,7 @@ public class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> impl
     private void show(DocBean doc, final String title) {
         final String docId = doc.getdocId();
 
-        clickToPreviewPresenter.ToDocPreview(doc);
+        ClickToPreviewPresenter.ToDocPreview(doc);
     }
 
     /**
