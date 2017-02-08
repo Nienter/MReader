@@ -9,5 +9,7 @@ import com.yuanchuangli.mreader.model.bean.doc.DocBean;
 public interface IClickListener {
     void Success(DocBean docBean);
 
-    void Fail();
+    void Fail(int code);
+
+    void onDestory();
 }

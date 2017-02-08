@@ -1,5 +1,7 @@
 package com.yuanchuangli.mreader.utils;
 
+import android.support.annotation.NonNull;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -11,7 +13,7 @@ class MD5Util {
     private static final String encryModel = "MD5";
 
     /**
-     * 不允许别人构造这个对象
+     * 私有对象
      */
     private MD5Util() {
         throw new Error("Do not need instantiate!");
@@ -24,10 +26,12 @@ class MD5Util {
      * @return 加密后的字符串
      */
 
+    @NonNull
     static String md5(String str) {
         return encrypt(encryModel, str);
     }
 
+    @NonNull
     private static String encrypt(String algorithm, String str) {
         try {
             MessageDigest md = MessageDigest.getInstance(algorithm);

@@ -14,12 +14,13 @@ import org.litepal.LitePalApplication;
 import org.litepal.tablemanager.Connector;
 
 /**
-*@description BaseApplication 捕获应用异常Application 在这里完成整个应用退出；在这里进行全局变量的传递；在这里完成低内存的释放；在这里捕获未抓住的异常；用于应用配置,预加载处理
-*@author Blank
-*@time   2017/1/4 16:30
-*/
+ * @author Blank
+ * @description BaseApplication 捕获应用异常Application 在这里完成整个应用退出；在这里进行全局变量的传递；在这里完成低内存的释放；在这里捕获未抓住的异常；用于应用配置,预加载处理
+ * @time 2017/1/4 16:30
+ */
 
 public class BaseApplication extends Application {
+    private static final String TAG = "BaseApplication";
     private static Context mContext;
     private static Tencent mTecent;
     private static IWXAPI mWeiXinApi;
@@ -31,7 +32,7 @@ public class BaseApplication extends Application {
         LitePalApplication.initialize(mContext);
         Connector.getDatabase();
         SharedPreferenceUtil.SharedPreferencesInit(mContext);
-        LogUtils.i("SHARE", "到了Appcalition");
+        LogUtils.i(TAG, "Application");
         // 异常处理
         //BaseCrashHandler handler = BaseCrashHandler.getInstance();
         // handler.init(this);
@@ -43,7 +44,7 @@ public class BaseApplication extends Application {
     }
 
     /**
-     * 初始化
+     * 初始化微信和QQ
      */
     private void init() {
         //QQ
@@ -56,9 +57,7 @@ public class BaseApplication extends Application {
 
     @Override
     public void onTerminate() {
-
         super.onTerminate();
-
     }
 
     // 在内存低时,发送广播可以释放一些内存

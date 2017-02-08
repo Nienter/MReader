@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -100,6 +101,8 @@ public class HttpUtil {
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             osw = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
             osw.write(params);//params没有加密，转型
+            Map<String, Object> a = new HashMap<>();
+
             osw.flush();//
             osw.close();
             int code = conn.getResponseCode();
@@ -129,4 +132,6 @@ public class HttpUtil {
         }
         return sb.toString();
     }
+
+
 }

@@ -14,6 +14,7 @@ import com.yuanchuangli.mreader.R;
 import com.yuanchuangli.mreader.model.bean.UpdateItem;
 import com.yuanchuangli.mreader.presenter.ISettingPresenter;
 import com.yuanchuangli.mreader.presenter.impl.SettingPresenter;
+import com.yuanchuangli.mreader.ui.activity.LoginActivity;
 import com.yuanchuangli.mreader.utils.CacheUtil;
 
 /**
@@ -60,6 +61,14 @@ public class SettingFragment extends PreferenceFragment implements ISettingFragm
                     e.printStackTrace();
                 }
 
+                return true;
+            }
+        });
+        findPreference(getString(R.string.pre_loginout)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                getActivity().finish();
                 return true;
             }
         });

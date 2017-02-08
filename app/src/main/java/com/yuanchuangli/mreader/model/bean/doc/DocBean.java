@@ -26,18 +26,20 @@ public class DocBean extends DataSupport implements Serializable {
 
     private String previewPath;//预览路径
 
+    private String downloadLink;//下载链接
+
     public DocBean() {
     }
 
 
-    public DocBean(String updateTime, String needCoin, String title, String litpic, String click, String previewPath) {
+    public DocBean(String updateTime, String needCoin, String title, String litpic, String click, String previewPath, String downloadLink) {
         this.updateTime = updateTime;
         this.needCoin = needCoin;
         this.title = title;
         this.litpic = litpic;
         this.click = click;
         this.previewPath = previewPath;
-
+        this.downloadLink = downloadLink;
     }
 
     public String getUpdateTime() {
@@ -104,6 +106,14 @@ public class DocBean extends DataSupport implements Serializable {
         this.previewPath = previewPath;
     }
 
+    public String getDownloadLink() {
+        return downloadLink;
+    }
+
+    public void setDownloadLink(String downloadLink) {
+        this.downloadLink = downloadLink;
+    }
+
     @Override
     public String toString() {
         return "DocBean{" +
@@ -115,6 +125,7 @@ public class DocBean extends DataSupport implements Serializable {
                 ", pageNumber='" + pageNumber + '\'' +
                 ", click='" + click + '\'' +
                 ", previewPath='" + previewPath + '\'' +
+                ", downloadLink='" + downloadLink + '\'' +
                 '}';
     }
 }

@@ -141,11 +141,12 @@
     <LinearLayout
         android:id="@+id/ll_cointar_otherlogin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <com.yuanchuangli.mreader.ui.myview.ThumbnailView
             android:id="@+id/id_ic_qq"
@@ -158,15 +159,15 @@
             android:id="@+id/id_ic_zhifubao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_login_zhifubao" />
+            android:src="@drawable/ic_login_zhifubao"
+            android:layout_weight="1" />
 
         <com.yuanchuangli.mreader.ui.myview.ThumbnailView
             android:id="@+id/id_ic_weixin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_login_wexin" />
+            android:src="@drawable/ic_login_weixin" />
 
     </LinearLayout>
 </RelativeLayout>

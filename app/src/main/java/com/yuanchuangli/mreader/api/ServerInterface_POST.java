@@ -32,7 +32,7 @@ public class ServerInterface_POST {
         params += "username=" + username;
         String password = user.getPassword();
         params += "&password=" + password;
-        LogUtils.i("PARAMS", params);
+        LogUtils.i("PARAMS", params.toString());
         try {
             URL url = new URL(REQUEST_PATH_lOGIN);
             return HttpUtil.sendPost(url, params);

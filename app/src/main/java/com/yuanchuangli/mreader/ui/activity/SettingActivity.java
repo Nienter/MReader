@@ -42,6 +42,7 @@ public class SettingActivity extends BaseActivity {
         getFragmentManager().beginTransaction().replace(R.id.fl_preference, mSettingFragment).commit();
     }
 
+
     private void findView() {
         mToolbar = (Toolbar) findViewById(toolbar);
         fl_Preference = (FrameLayout) findViewById(R.id.fl_preference);
@@ -50,5 +51,6 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
     }
 }

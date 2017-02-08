@@ -179,6 +179,7 @@ public class SelectedDocFragment extends BaseFragment implements ISelectedDocFra
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
     }
 
     @Override

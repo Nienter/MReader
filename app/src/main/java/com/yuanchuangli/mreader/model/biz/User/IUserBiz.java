@@ -16,4 +16,6 @@ public interface IUserBiz {
     void getSelectedDoc(User user, int page, IOngetDocListener iOngetDocListener);
 
     void clickItemDoc(DocBean docBean, IClickListener iClickListener);
+
+    void getDocDownloadLink(DocBean docBean, IClickListener iClickListener);
 }

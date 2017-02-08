@@ -11,13 +11,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.yuanchuangli.mreader.R;
+import com.yuanchuangli.mreader.utils.LogUtils;
 import com.yuanchuangli.mreader.utils.NetUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -30,9 +35,11 @@ import java.lang.reflect.InvocationTargetException;
 public class DocInfoActivity extends BaseActivity implements View.OnClickListener {
     private WebView wvDoc;
     private Toolbar mToolbar;
+    private Button btn_refresh;
     private ProgressBar pbWeb;
     private FloatingActionButton fabButton;
     private NestedScrollView nest;
+    private LinearLayout mLinearLayout;
     String url;
     String title;
 
@@ -53,22 +60,53 @@ public class DocInfoActivity extends BaseActivity implements View.OnClickListene
                 DocInfoActivity.this.onBackPressed();
             }
         });
+
         if (actionbar != null) {
             actionbar.setDisplayHomeAsUpEnabled(true);
         }
 
         setWebView();
-        wvDoc.loadUrl(url);
+        wvDoc.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                super.onReceivedError(view, errorCode, description, failingUrl);
+                LogUtils.i("DocInfoACtivity", "code:" + errorCode);
+            }
+        });
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    URL local_url = new URL(url);
+//                    HttpURLConnection connection = (HttpURLConnection) local_url.openConnection();
+//                    int code = connection.getResponseCode();
+//                    LogUtils.i("code", "code:" + code);
+//                } catch (MalformedURLException e) {
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }.start();
+        wvDoc.loadUrl("http://www.baidu.com");
         overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
         //setToolBar();
         //浮动按钮事件，暂时不添加，
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nest.smoothScrollTo(0, 0);
+                //nest.smoothScrollTo(0, 0);
+                wvDoc.scrollTo(0,0);
             }
         });
-        //nest 与webview有冲突，暂时不做添加
+
+//        //nest 与webview有冲突，暂时不做添加
 //        nest.setOnTouchListener(new OnTouchListener() {
 //            @Override
 //            public boolean onTouch(View v, MotionEvent event) {
@@ -79,16 +117,14 @@ public class DocInfoActivity extends BaseActivity implements View.OnClickListene
 
 
         //用于解决滑动冲突，但是没有作用
-//        wvDoc.setOnTouchListener(new OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if (event.getAction() == MotionEvent.ACTION_UP)
-//                    nest.requestDisallowInterceptTouchEvent(false);
-//                else
-//                    nest.requestDisallowInterceptTouchEvent(true);
-//                return false;
-//            }
-//        });
+        wvDoc.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                //nest.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+
+        });
     }
 
     private void setWebView() {
@@ -133,12 +169,13 @@ public class DocInfoActivity extends BaseActivity implements View.OnClickListene
     }
 
 
-
     private void findView() {
         wvDoc = (WebView) findViewById(R.id.wv_doc);
         pbWeb = (ProgressBar) findViewById(R.id.pb_web);
         fabButton = (FloatingActionButton) findViewById(R.id.fabButton);
-        nest = (NestedScrollView) findViewById(R.id.nest);
+        //nest = (NestedScrollView) findViewById(R.id.nest);
+        mLinearLayout = (LinearLayout) findViewById(R.id.ll_error);
+        btn_refresh = (Button) findViewById(R.id.refresh_data);
     }
 
     @Override
@@ -224,4 +261,5 @@ public class DocInfoActivity extends BaseActivity implements View.OnClickListene
 
         }
     }
+
 }

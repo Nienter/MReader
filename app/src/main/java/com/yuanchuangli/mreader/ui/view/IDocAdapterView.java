@@ -10,4 +10,12 @@ import com.yuanchuangli.mreader.model.bean.doc.DocBean;
 
 public interface IDocAdapterView {
     void ToDocInfoACtivity(DocBean docBean);
+
+    void showError(int code);
+
+    String getDownloadLink(DocBean docBean);
+
+    void startDownload(String url);
+
+    void onDestory();
 }

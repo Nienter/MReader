@@ -78,6 +78,11 @@
             android:theme="@style/AppTheme"></activity>
         <activity android:name=".ui.activity.RechargeRecordsActivity"></activity>
         <activity android:name=".ui.activity.SettingActivity" />
+
+        <service
+            android:name=".model.biz.User.DownloadService"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>

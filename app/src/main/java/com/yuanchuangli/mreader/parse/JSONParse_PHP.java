@@ -52,6 +52,8 @@ public class JSONParse_PHP {
         throw (new Error("不允许初始化"));
     }
 
+    private static final String TAG = "JSONParse_PHP";
+
     /**
      * 获取服务端的状态码，返回相应的状态码
      *
@@ -238,5 +240,14 @@ public class JSONParse_PHP {
             return null;
         }
         return rechargeRecordsList;
+    }
+
+    public static DocBean getDocDownloadLink(String json) throws JSONException {
+        JSONObject jsonObject = new JSONObject(json);
+        JSONObject jsonObject1 = jsonObject.getJSONObject("result");
+        DocBean docBean = new DocBean();
+        docBean.setDownloadLink(jsonObject1.getString("downloadLink"));
+        LogUtils.i(TAG, docBean.getDownloadLink());
+        return docBean;
     }
 }

@@ -9,6 +9,8 @@ import com.yuanchuangli.mreader.utils.NetUtils;
 import com.yuanchuangli.mreader.utils.SharedPreferenceUtil;
 import com.yuanchuangli.mreader.utils.init.BaseApplication;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 /**
@@ -92,23 +94,55 @@ public class UserBiz implements IUserBiz {
             @Override
             public void run() {
                 int code;
-                if(NetUtils.isNetworkConnected(BaseApplication.getContext())){
-                String json = ServerInterface_GET.getDocInfromServer(docBean);
-                code = JSONParse_PHP.getStatus(json);
-                String docPreviewPath = JSONParse_PHP.getDocInfo(json);
-                docBean.setPreviewPath(docPreviewPath);}
-                else{
-                     code = JSONParse_PHP.STATUS_SUCCESS;}
+                if (NetUtils.isNetworkConnected(BaseApplication.getContext())) {
+                    String json = ServerInterface_GET.getDocInfromServer(docBean);
+                    code = JSONParse_PHP.getStatus(json);
+                    String docPreviewPath = JSONParse_PHP.getDocInfo(json);
+                    docBean.setPreviewPath(docPreviewPath);
+                } else {
+                    code = JSONParse_PHP.STATUS_SUCCESS;
+                }
                 switch (code) {
                     case JSONParse_PHP.STATUS_SUCCESS:
                         iClickListener.Success(docBean);
                         break;
                     case JSONParse_PHP.SERVER_CONNECTION_ERROR:
+                        iClickListener.Fail(code);
                         break;
                     case JSONParse_PHP.STATUS_SIGN_ERROR:
+                        iClickListener.Fail(code);
                         break;
                 }
 
+            }
+        }.start();
+    }
+
+    @Override
+    public void getDocDownloadLink(final DocBean docBean, final IClickListener iClickListener) {
+        new Thread() {
+            @Override
+            public void run() {
+                String json = ServerInterface_GET.getDownloadLink(docBean.getdocId());
+                int code = JSONParse_PHP.getStatus(json);
+                switch (code) {
+                    case JSONParse_PHP.STATUS_SUCCESS:
+                        try {
+                        String link = JSONParse_PHP.getDocDownloadLink(json).getDownloadLink();
+                        docBean.setDownloadLink(link);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                        iClickListener.Success(docBean);
+                        break;
+                    case JSONParse_PHP.SERVER_CONNECTION_ERROR:
+                        iClickListener.Fail(JSONParse_PHP.SERVER_CONNECTION_ERROR);
+                        break;
+                    case JSONParse_PHP.STATUS_SIGN_ERROR:
+                        iClickListener.Fail(JSONParse_PHP.STATUS_SIGN_ERROR);
+                        break;
+                }
+                iClickListener.onDestory();
             }
         }.start();
     }

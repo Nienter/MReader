@@ -27,20 +27,61 @@
             android:layout_height="2dp"
             android:max="100"
             android:progressDrawable="@drawable/web_view_progress" />
+
     </android.support.design.widget.AppBarLayout>
 
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/nest"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
+    <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:id="@+id/nest"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+       <!---->
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+<!--</android.support.v4.widget.NestedScrollView>-->
         <WebView
             android:id="@+id/wv_doc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </android.support.v4.widget.NestedScrollView>
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:visibility="visible"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    <!--<com.yuanchuangli.mreader.ui.myview.NestedScrollWebView-->
+    <!--android:id="@+id/wv_doc"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:focusable="true"-->
+    <!--android:focusableInTouchMode="true"-->
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
+
+    <LinearLayout
+        android:id="@+id/ll_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/webView_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_plaint" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="未知错误" />
+
+        <Button
+            android:id="@+id/refresh_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="重新加载" />
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabButton"

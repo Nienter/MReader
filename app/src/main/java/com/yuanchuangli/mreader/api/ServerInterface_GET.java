@@ -40,6 +40,10 @@ public class ServerInterface_GET {
      * REQUREST_PATH_DOC_PROVIEW 文档预览的接口
      */
     public final static String REQUREST_PATH_DOC_PROVIEW = ServerInterface.DOC_BASE_ADDRESS + "docPreview";
+    /**
+     * REQUEST_PATH_DOC_DOWNLOAD 文档下载路径的接口
+     */
+    public final static String REQUEST_PATH_DOC_DOWNLOAD = ServerInterface.DOC_BASE_ADDRESS + "docDownloadLink";
 
     /**
      * 私有化构造方法
@@ -103,7 +107,7 @@ public class ServerInterface_GET {
     }
 
     /**
-     * 从服务器充值记录信息
+     * 从服务器查询充值记录信息
      *
      * @return 充值记录信息
      */
@@ -112,6 +116,25 @@ public class ServerInterface_GET {
             URL url = new URL(ServerInterface_GET.REQUEST_PATH_USER_RECORD_RECHARGE);
             Map<String, Object> map = new HashMap<>();
             map.put("token", SharedPreferenceUtil.getUser(BaseApplication.getContext()).getString("token", null));
+            return HttpUtil.sendGet(url, map);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * 从服务器获取文档的下载地址（非游客下载）
+     *
+     * @param docId
+     * @return
+     */
+    public static String getDownloadLink(String docId) {
+        try {
+            URL url = new URL(ServerInterface_GET.REQUEST_PATH_DOC_DOWNLOAD);
+            Map<String, Object> map = new HashMap<>();
+            map.put("token", SharedPreferenceUtil.getUser(BaseApplication.getContext()).getString("token", null));
+            map.put("docid", docId);
             return HttpUtil.sendGet(url, map);
         } catch (MalformedURLException e) {
             e.printStackTrace();

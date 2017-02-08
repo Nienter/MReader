@@ -30,7 +30,7 @@ public class RechargeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_common, container, false);
+        View view = inflater.inflate(R.layout.fragment_recharge, container, false);
         setHasOptionsMenu(true);//显示menu必须加
         return view;
     }

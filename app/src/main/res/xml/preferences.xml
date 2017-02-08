@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <PreferenceCategory android:title="流量控制">
         <CheckBoxPreference
             android:defaultValue="false"
@@ -43,5 +42,7 @@
             android:summary="101"
             android:title="版本号" />
     </PreferenceCategory>
-
+    <Preference
+    android:key="@string/pre_loginout"
+    android:title="退出登录" />
 </PreferenceScreen>

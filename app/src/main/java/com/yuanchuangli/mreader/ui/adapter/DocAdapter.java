@@ -1,8 +1,17 @@
 package com.yuanchuangli.mreader.ui.adapter;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.IBinder;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -18,11 +27,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.yuanchuangli.mreader.R;
 import com.yuanchuangli.mreader.model.bean.doc.DocBean;
+import com.yuanchuangli.mreader.model.biz.User.DownloadService;
 import com.yuanchuangli.mreader.presenter.impl.ClickToPreviewPresenter;
 import com.yuanchuangli.mreader.ui.activity.DocInfoActivity;
 import com.yuanchuangli.mreader.ui.view.IDocAdapterView;
 import com.yuanchuangli.mreader.utils.DateUtils;
 import com.yuanchuangli.mreader.utils.LogUtils;
+import com.yuanchuangli.mreader.utils.ToastUtils;
 
 import org.litepal.crud.DataSupport;
 
@@ -35,8 +46,20 @@ import java.util.List;
 public class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> implements IDocAdapterView {
     private Context mContext;
     private ClickToPreviewPresenter clickToPreviewPresenter = new ClickToPreviewPresenter(this);
-    private List<DocBean> mDocList;
 
+    private List<DocBean> mDocList;
+    private DownloadService.DownloadBinder downloadBinder;
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            downloadBinder = (DownloadService.DownloadBinder) service;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cv_doc;
@@ -55,6 +78,11 @@ public class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> impl
             btn_doc = (Button) itemView.findViewById(R.id.btn_doc);
         }
     }
+
+    public DocAdapter() {
+    }
+
+    ;
 
     public DocAdapter(List<DocBean> DocList, Context context) {
         mDocList = DocList;
@@ -82,6 +110,12 @@ public class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> impl
         holder.doc_click.setText(doc.getClick() + "次下载");
         holder.doc_needCoin.setText(doc.getNeedCoin());
         holder.doc_updateTime.setText(DateUtils.timeStamp2Date(doc.getUpdateTime(), "yyyy.MM.dd"));
+        Intent intent = new Intent(mContext, DownloadService.class);
+        mContext.startService(intent);
+        mContext.bindService(intent, connection, Context.BIND_AUTO_CREATE);
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions((Activity) mContext, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
         if (TextUtils.isEmpty(doc.getLitpic()) || !doc.getLitpic().contains("http")) {
             LogUtils.i("无图", "真的" + TextUtils.isEmpty(doc.getLitpic()));
             Glide.with(mContext).load(R.drawable.ic_nolitpic).into(holder.doc_Image);
@@ -111,6 +145,11 @@ public class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> impl
                                 }
                                 break;
                             case R.id.pop_download:
+                                //String url = "http://userup0001.book118.com/uploads/userup/130/12Z05NW-4452.doc";
+                                ClickToPreviewPresenter.getDownloadLink(doc);
+                                //String url = "https://raw.githubusercontent.com/guolindev/eclipse/master/eclipse-inst-win64.exe";
+                                break;
+                            default:
                                 break;
                         }
                         return true;
@@ -141,4 +180,42 @@ public class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> impl
     public void ToDocInfoACtivity(DocBean docBean) {
         mContext.startActivity(new Intent(mContext, DocInfoActivity.class).putExtra("url", docBean.getPreviewPath()).putExtra("title", docBean.getTitle()));
     }
+
+    @Override
+    public void showError(int code) {
+        switch (code) {
+            case 2:
+                ToastUtils.showToast(mContext, "您没有该买此文档");
+                AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(mContext);
+                builder.setTitle("文档提示");
+                builder.setMessage("此文档您还未购买，是否购买？");
+                builder.setNegativeButton("取消", null);
+                builder.setPositiveButton("确定", null);
+                builder.show();
+                break;
+            default:
+                ToastUtils.showToast(mContext, "对不起，此文档现在不可预览");
+        }
+
+    }
+
+    @Override
+    public String getDownloadLink(DocBean docBean) {
+
+        return docBean.getDownloadLink();
+    }
+
+    @Override
+    public void startDownload(String url) {
+        downloadBinder.startDownload(url);
+
+    }
+
+    @Override
+    public void onDestory() {
+        mContext.unbindService(connection);
+    }
+
+
 }
+
